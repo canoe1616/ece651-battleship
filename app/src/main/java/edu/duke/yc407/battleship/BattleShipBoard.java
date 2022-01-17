@@ -12,12 +12,12 @@ package edu.duke.yc407.battleship;
 
 public class BattleShipBoard implements Board{
 
-  private int width;
+  private final int width;
     
   public int getWidth(){
     return width;
   }
-  private int height;
+  private final int height;
   public int getHeight(){
     return height;
   }

@@ -7,21 +7,28 @@
    * @throws IllegalArgumentException if the width or height are less than or equal to zero.
    */
 
-
 package edu.duke.yc407.battleship;
 
-public class BattleShipBoard implements Board{
+//import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
+public class BattleShipBoard<T> implements Board<T> {
 
   private final int width;
-    
-  public int getWidth(){
+  final ArrayList<Ship<T>> myShips;
+
+  public int getWidth() {
     return width;
   }
+
   private final int height;
-  public int getHeight(){
+
+  public int getHeight() {
     return height;
   }
-  public BattleShipBoard(int w, int h){
+
+  public BattleShipBoard(int w, int h) {
     if (w <= 0) {
       throw new IllegalArgumentException("BattleShipBoard's width must be positive but is " + w);
     }
@@ -30,14 +37,22 @@ public class BattleShipBoard implements Board{
     }
     this.width = w;
     this.height = h;
+    this.myShips = new ArrayList<Ship<T>>();
   }
 
-  
+  public boolean tryAddShip(Ship<T> toAdd) {
+    myShips.add(toAdd);
+    return true;
+
+  }
+  public T whatIsAt(Coordinate where) {
+    for (Ship<T> s: myShips) {
+      if (s.occupiesCoordinates(where)){
+        return s.getDisplayInfoAt(where);
+      }
+    }
+    return null;
+  }
+
 
 }
-
-
-  
-
-  
-

@@ -13,7 +13,7 @@ public class BoardTextView {
   /**
    * The Board to display
    */
-  private final Board toDisplay;
+  private final Board<Character> toDisplay;
     /**
    * Constructs a BoardView, given the board it will display.
    * @param toDisplay is the Board to display
@@ -22,7 +22,7 @@ public class BoardTextView {
    
 
   
-    public BoardTextView(Board toDisplay) {
+    public BoardTextView(Board<Character> toDisplay) {
     this.toDisplay = toDisplay;
     if (toDisplay.getWidth() > 10 || toDisplay.getHeight() > 26) {
       throw new IllegalArgumentException(

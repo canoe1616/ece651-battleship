@@ -48,8 +48,13 @@ start to develop the board
          }
          else{
            ans.append("|");
+           if(toDisplay.whatIsAt(new Coordinate(i, j)) != null){
+             ans.append(toDisplay.whatIsAt(new Coordinate(i, j)));
+             }
+           else{
            ans.append(" ");
-         }
+           }
+           }
        }
        ans.append("\n");
      }

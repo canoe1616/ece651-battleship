@@ -1,0 +1,5 @@
+package edu.duke.yc407.battleship;
+
+public class ShipDisplayInfo {
+
+}

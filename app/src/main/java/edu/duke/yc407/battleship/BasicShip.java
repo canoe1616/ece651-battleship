@@ -23,28 +23,47 @@ public abstract class BasicShip<T> implements Ship<T> {
     return myPieces.containsKey(where);
   }
 
+  protected void checkCoordinateInThisShip(Coordinate c){
+    if(occupiesCoordinates(c) ==false){
+      throw new IllegalArgumentException("This coordinate is not in the ship.");
+    }
+  }
+  
   @Override
   public boolean isSunk() {
     // TODO Auto-generated method stub
-    return false;
+     for(Coordinate c: myPieces.keySet()){
+       checkCoordinateInThisShip(c);
+       if(myPieces.get(c) == false){
+         return false;
+       }
+     }
+    return true;
   }
 
   @Override
   public void recordHitAt(Coordinate where) {
     // TODO Auto-generated method stub
-
+    checkCoordinateInThisShip(where);
+    for(Coordinate c: myPieces.keySet()){
+      if(c.equals(where)){
+        myPieces.replace(c,true);
+      }
+    }
   }
 
   @Override
   public boolean wasHitAt(Coordinate where) {
     // TODO Auto-generated method stub
-    return false;
+    checkCoordinateInThisShip(where);
+    return myPieces.get(where);
   }
 
   @Override
   public T getDisplayInfoAt(Coordinate where) {
     // TODO Auto-generated method stub
-    return myDisplayInfo.getInfo(where, false);
+    checkCoordinateInThisShip(where);
+    return myDisplayInfo.getInfo(where, wasHitAt(where));
   }
 
 }

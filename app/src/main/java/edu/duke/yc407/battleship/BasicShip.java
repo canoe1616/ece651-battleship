@@ -16,6 +16,10 @@ public abstract class BasicShip<T> implements Ship<T> {
     }
   }
 
+  //  public HashMap<Coordinate, Boolean> get_myPieces(){
+  //  return myPieces;
+  //}
+
   @Override
   public boolean occupiesCoordinates(Coordinate where) {
     // TODO Auto-generated method stub

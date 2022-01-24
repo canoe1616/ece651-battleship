@@ -17,13 +17,19 @@ public class App {
   final Board<Character> theBoard;
   final BoardTextView view;
   final BufferedReader inputReader;
-  final PrintStream out ;
+  final PrintStream out;
+  final AbstractShipFactory<Character> shipFactory;
+
+  // public AbstractShipFactory<Character> shipFactory(){
+  // return new V1ShipFactory();
+  // }
 
   public App(Board<Character> theBoard, Reader inputSource, PrintStream out) {
     this.theBoard = theBoard;
     this.view = new BoardTextView(theBoard);
     this.inputReader = new BufferedReader(inputSource);
     this.out = out;
+    this.shipFactory = new V1ShipFactory();
   }
 
   public Placement readPlacement(String prompt) throws IOException {
@@ -32,21 +38,18 @@ public class App {
     return new Placement(s);
   }
 
-  public void doOnePlacement() throws IOException{
-    //out.println(prompt);
+  public void doOnePlacement() throws IOException {
+
     String s = "Where would you like to put your ship?";
-    Ship<Character> ship = new RectangleShip<Character>(readPlacement(s).getCoordinate(),'s','*');
-    
-    //BasicShip p = new BasicShip(new Coordinate(s));
+    //Ship<Character> ship = new RectangleShip<Character>(readPlacement(s).getCoordinate(), 's', '*');
+    Ship<Character> ship = shipFactory.makeDestroyer(readPlacement(s));
     theBoard.tryAddShip(ship);
-    //view.displayMyOwnBoard();
     out.print(view.displayMyOwnBoard());
   }
-   public static void main(String[] args) throws IOException{
-     //    StringReader sr = new StringReader("B2V\n");
-     //ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-     //PrintStream ps = new PrintStream(bytes, true);
-    Board<Character> b = new BattleShipBoard<Character>(10,20);
+
+  public static void main(String[] args) throws IOException {
+
+    Board<Character> b = new BattleShipBoard<Character>(10, 20);
     InputStream in = System.in;
     InputStreamReader isr = new InputStreamReader(in);
     App app = new App(b, isr, System.out);

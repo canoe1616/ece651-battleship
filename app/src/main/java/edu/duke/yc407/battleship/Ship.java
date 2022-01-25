@@ -8,6 +8,11 @@ package edu.duke.yc407.battleship;
 
 public interface Ship<T> {
 
+   /**
+   * Get all of the Coordinates that this Ship occupies.
+   * @return An Iterable with the coordinates that this Ship occupies
+   */
+  public Iterable<Coordinate> getCoordinates();
 
   /**
    * Get the name of this Ship, such as "submarine".

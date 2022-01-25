@@ -17,7 +17,8 @@ public class BattleShipBoard<T> implements Board<T> {
 
   private final int width;
   final ArrayList<Ship<T>> myShips;
-
+  private final PlacementRuleChecker<T> placementChecker;
+  
   public int getWidth() {
     return width;
   }
@@ -29,15 +30,19 @@ public class BattleShipBoard<T> implements Board<T> {
   }
 
   public BattleShipBoard(int w, int h) {
-    if (w <= 0) {
-      throw new IllegalArgumentException("BattleShipBoard's width must be positive but is " + w);
+    this(w, h, new InBoundsRuleChecker<T>(null));
+  }
+  public BattleShipBoard(int w, int h,PlacementRuleChecker<T> placementChecker) {
+   if (w <= 0) {
+     throw new IllegalArgumentException("BattleShipBoard's width must be positive but is " + w);
     }
     if (h <= 0) {
       throw new IllegalArgumentException("BattleShipBoard's height must be positive but is " + h);
-    }
+   }
     this.width = w;
     this.height = h;
-    this.myShips = new ArrayList<Ship<T>>();
+   this.myShips = new ArrayList<Ship<T>>();
+   this.placementChecker = placementChecker;
   }
 
   public boolean tryAddShip(Ship<T> toAdd) {

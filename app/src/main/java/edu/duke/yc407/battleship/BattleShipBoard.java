@@ -29,6 +29,9 @@ public class BattleShipBoard<T> implements Board<T> {
     return height;
   }
 
+  /*the default placementChecker in BattleShipBoard to use the
+two checkers combined.
+  */
   public BattleShipBoard(int w, int h) {
     this(w, h, new InBoundsRuleChecker<T>(new NoCollisionRuleChecker<>(null)));
   }
@@ -44,7 +47,7 @@ public class BattleShipBoard<T> implements Board<T> {
    this.myShips = new ArrayList<Ship<T>>();
    this.placementChecker = placementChecker;
   }
-
+  /*tryAddShip use the placementChecker*/
   public boolean tryAddShip(Ship<T> toAdd) {
     Boolean error_not = placementChecker.checkPlacement(toAdd, this);
     if(error_not == false){

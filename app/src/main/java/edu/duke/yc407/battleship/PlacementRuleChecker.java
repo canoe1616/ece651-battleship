@@ -10,11 +10,17 @@ public abstract class PlacementRuleChecker<T>{
 
   protected abstract boolean checkMyRule(Ship<T> theShip, Board<T> theBoard);
 
+   protected abstract boolean checkCollision(Ship<T> theShip,Board<T> theBoard);
+  
   public boolean checkPlacement (Ship<T> theShip, Board<T> theBoard) {
     //if we fail our own rule: stop the placement is not legal
     if (!checkMyRule(theShip, theBoard)) {
       return false;
     }
+     if(!checkCollision(theShip, theBoard)){
+      return false;
+    }
+    
     //other wise, ask the rest of the chain.
     if (next != null) {
       return next.checkPlacement(theShip, theBoard); 

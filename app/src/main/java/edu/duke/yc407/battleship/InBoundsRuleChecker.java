@@ -17,6 +17,18 @@ public class InBoundsRuleChecker<T> extends PlacementRuleChecker<T> {
     }
     return true;
   }
+
+   @Override 
+  protected boolean checkCollision(Ship<T> theShip, Board<T> theBoard){
+
+    for(Coordinate c : theShip.getCoordinates()){
+      if(theBoard.whatIsAt(c)!= null){
+        return false;
+      }
+    }
+    return true;
+  }
+
   public InBoundsRuleChecker(PlacementRuleChecker<T> next) {
     super(next);
   }

@@ -1,0 +1,23 @@
++---------------------------------------------+-----------------+------------+-----------+-----------+---------+
+|                 Class Name                  | Total Coverage% | Cvrd Stmts | Ttl Stmts | Cvrdd Brs | Ttl Brs |
++---------------------------------------------+-----------------+------------+-----------+-----------+---------+
+|     edu.duke.yc407.battleship.BasicShip     |       60        |     3      |     5     |     0     |    0    |
+|     edu.duke.yc407.battleship.Placement     |       100       |     17     |    17     |     6     |    6    |
+|       edu.duke.yc407.battleship.Ship        |       100       |     0      |     0     |     0     |    0    |
+|  edu.duke.yc407.battleship.BattleShipBoard  |       100       |     15     |    15     |     6     |    6    |
+|       edu.duke.yc407.battleship.Board       |       100       |     0      |     0     |     0     |    0    |
+|   edu.duke.yc407.battleship.BoardTextView   |       100       |     26     |    26     |    10     |   10    |
+|    edu.duke.yc407.battleship.Coordinate     |       100       |     29     |    29     |    16     |   16    |
+|   edu.duke.yc407.battleship.PlacementTest   |       100       |     62     |    62     |     0     |    0    |
+|     edu.duke.yc407.battleship.BoardTest     |       100       |     0      |     0     |     0     |    0    |
+| edu.duke.yc407.battleship.BoardTextViewTest |       100       |     22     |    22     |     0     |    0    |
+|edu.duke.yc407.battleship.BattleShipBoardTest|       100       |     20     |    20     |     4     |    4    |
+|  edu.duke.yc407.battleship.CoordinateTest   |       100       |     42     |    42     |     0     |    0    |
++---------------------------------------------+-----------------+------------+-----------+-----------+---------+
+|                   Totals                    |       99        |    236     |    238    |    42     |   42    |
++---------------------------------------------+-----------------+------------+-----------+-----------+---------+
+
+
+Remove Colors From All Buffers
+
+Fundamental finished at Thu Jan 20 18:01:57

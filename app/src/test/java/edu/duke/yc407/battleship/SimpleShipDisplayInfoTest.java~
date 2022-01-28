@@ -1,0 +1,14 @@
+package edu.duke.yc407.battleship;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+public class SimpleShipDisplayInfoTest {
+  @Test
+  public void test_with_simple_ship_display() {
+    SimpleShipDisplayInfo<Character> info = new SimpleShipDisplayInfo<>('a','c');
+    assertEquals('a', info.getInfo););
+  }
+
+}

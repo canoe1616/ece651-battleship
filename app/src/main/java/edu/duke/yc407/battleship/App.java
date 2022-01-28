@@ -14,45 +14,61 @@ import java.io.StringReader;
 
 public class App {
 
-  final Board<Character> theBoard;
-  final BoardTextView view;
-  final BufferedReader inputReader;
-  final PrintStream out;
-  final AbstractShipFactory<Character> shipFactory;
+  // final Board<Character> theBoard;
+  // final BoardTextView view;
+  // final BufferedReader inputReader;
+  // final PrintStream out;
+  // final AbstractShipFactory<Character> shipFactory;
 
-  // public AbstractShipFactory<Character> shipFactory(){
-  // return new V1ShipFactory();
+  TextPlayer player1;
+  TextPlayer player2;
+
+  public App(TextPlayer A, TextPlayer B) {
+    this.player1 = A;
+    this.player2 = B;
+  }
+
+  // public App(Board<Character> theBoard, Reader inputSource, PrintStream out) {
+  // this.theBoard = theBoard;
+  // this.view = new BoardTextView(theBoard);
+  // this.inputReader = new BufferedReader(inputSource);
+  // this.out = out;
+  // this.shipFactory = new V1ShipFactory();
   // }
 
-  public App(Board<Character> theBoard, Reader inputSource, PrintStream out) {
-    this.theBoard = theBoard;
-    this.view = new BoardTextView(theBoard);
-    this.inputReader = new BufferedReader(inputSource);
-    this.out = out;
-    this.shipFactory = new V1ShipFactory();
-  }
+  // public Placement readPlacement(String prompt) throws IOException {
+  // out.println(prompt);
+  // String s = inputReader.readLine();
+  // return new Placement(s);
+  // }
 
-  public Placement readPlacement(String prompt) throws IOException {
-    out.println(prompt);
-    String s = inputReader.readLine();
-    return new Placement(s);
-  }
+  // public void doOnePlacement() throws IOException {
 
-  public void doOnePlacement() throws IOException {
-
-    String s = "Where would you like to put your ship?";
-    //Ship<Character> ship = new RectangleShip<Character>(readPlacement(s).getCoordinate(), 's', '*');
-    Ship<Character> ship = shipFactory.makeDestroyer(readPlacement(s));
-    theBoard.tryAddShip(ship);
-    out.print(view.displayMyOwnBoard());
-  }
+  // String s = "Where would you like to put your ship?";
+  // Ship<Character> ship = new
+  // RectangleShip<Character>(readPlacement(s).getCoordinate(), 's', '*');
+  // Ship<Character> ship = shipFactory.makeDestroyer(readPlacement(s));
+  // theBoard.tryAddShip(ship);
+  // out.print(view.displayMyOwnBoard());
+  // }
 
   public static void main(String[] args) throws IOException {
 
-    Board<Character> b = new BattleShipBoard<Character>(10, 20);
-    InputStream in = System.in;
-    InputStreamReader isr = new InputStreamReader(in);
-    App app = new App(b, isr, System.out);
-    app.doOnePlacement();
+    Board<Character> b1 = new BattleShipBoard<Character>(10, 20);
+    Board<Character> b2 = new BattleShipBoard<Character>(10, 20);
+    // InputStream in = System.in;
+    // InputStreamReader isr = new InputStreamReader(in);
+    BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+    V1ShipFactory factory = new V1ShipFactory();
+    TextPlayer a = new TextPlayer("A", b1, input, System.out, factory);
+    TextPlayer b = new TextPlayer("B", b2, input, System.out, factory);
+    App app = new App(a, b);
+    app.doPlacementPhase();
   }
+
+  public void doPlacementPhase() throws IOException {
+    player1.doPlacementPhase();
+    player2.doPlacementPhase();
+  }
+
 }

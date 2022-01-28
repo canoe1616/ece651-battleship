@@ -11,8 +11,8 @@ import java.util.function.Function;
 
 public class TextPlayer {
   final Board<Character> theBoard;
-  final BoardTextView view;
   final BufferedReader inputReader;
+  final BoardTextView view;
   final PrintStream out;
   final AbstractShipFactory<Character> shipFactory;
   String name;
@@ -39,16 +39,16 @@ public class TextPlayer {
   protected void setupShipCreationMap() {
 
     shipCreationFns.put("Submarine", (p) -> shipFactory.makeSubmarine(p));
-    shipCreationFns.put("Destroyer", (p) -> shipFactory.makeSubmarine(p));
-    shipCreationFns.put("Battleships", (p) -> shipFactory.makeSubmarine(p));
-    shipCreationFns.put("Carriers", (p) -> shipFactory.makeSubmarine(p));
+    shipCreationFns.put("Destroyer", (p) -> shipFactory.makeDestroyer(p));
+    shipCreationFns.put("Battleships", (p) -> shipFactory.makeBattleship(p));
+    shipCreationFns.put("Carriers", (p) -> shipFactory.makeCarrier(p));
   }
 
   protected void setupShipCreationList() {
     shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
     shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
-    shipsToPlace.addAll(Collections.nCopies(4, "Battleships"));
-    shipsToPlace.addAll(Collections.nCopies(6, "Carriers"));
+    shipsToPlace.addAll(Collections.nCopies(3, "Battleships"));
+    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
   }
 
   public Placement readPlacement(String prompt) throws IOException {
@@ -67,6 +67,8 @@ public class TextPlayer {
     out.print(view.displayMyOwnBoard());
   }
 
+
+  /*first we should display an empty board*/
   public void doPlacementPhase() throws IOException {
     out.print(view.displayMyOwnBoard());
     // String s = "Player A Where would you like to put your ship?";

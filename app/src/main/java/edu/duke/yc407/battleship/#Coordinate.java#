@@ -55,6 +55,7 @@ public class Coordinate {
           throw new IllegalArgumentException("The columnLetter is not correct" + columnLetter);
         }
         c = Character.getNumericValue(columnLetter);
+        System.out.println(c);
       }
 
       if (i > 1) {

@@ -83,18 +83,24 @@ public class BattleShipBoard<T> implements Board<T> {
   }
 
   public T whatIsAtForEnemy(Coordinate where) {
-    return whatIsAt(where, false);
+    T temp = whatIsAt(where, false);
+    if(temp == null){
+      if(enemyMisses.contains(where)){
+        return missInfo;
+      }
+    }
+    return temp;
   }
 
   public Ship<T> fireAt(Coordinate c) {
-    if (whatIsAtForSelf(c) != null) {
+    // if (whatIsAtForSelf(c) != null){
       for (Ship<T> s : myShips) {
         if (s.occupiesCoordinates(c)) {
           s.recordHitAt(c);
           return s;
         }
       }
-    }
+      //}
     enemyMisses.add(c);
     return null;
   }

@@ -12,12 +12,14 @@ package edu.duke.yc407.battleship;
 //import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class BattleShipBoard<T> implements Board<T> {
 
   private final int width;
   final ArrayList<Ship<T>> myShips;
   private final PlacementRuleChecker<T> placementChecker;
+  HashSet<Coordinate> enemyMisses;
   
   public int getWidth() {
     return width;
@@ -64,6 +66,20 @@ two checkers combined.
         return s.getDisplayInfoAt(where);
       }
     }
+    return null;
+  }
+
+
+  public Ship<T> fireAt(Coordinate c){
+    if(whatIsAt(c) != null){
+      for(Ship<T> s: myShips){
+        if(s.occupiesCoordinates(c)){
+          s.recordHitAt(c);
+          return s;
+        }
+      }
+    }
+    enemyMisses.add(c);
     return null;
   }
 

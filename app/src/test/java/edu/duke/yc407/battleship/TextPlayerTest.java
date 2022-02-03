@@ -17,7 +17,7 @@ public class TextPlayerTest {
     StringReader sr = new StringReader("B2V\nC8H\na4v\n");
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream ps = new PrintStream(bytes, true);
-    Board<Character> b1 = new BattleShipBoard<Character>(10, 20);
+    Board<Character> b1 = new BattleShipBoard<Character>(10, 20,'X');
     // ArrayList<String> shipsToPlace = new ArrayList<>();
     // HashMap<String, Function<Placement, Ship<Character>>> shipCreationFns = new
     // HashMap<>();
@@ -40,7 +40,7 @@ public class TextPlayerTest {
   private TextPlayer createTextPlayer(int w, int h, String inputData, OutputStream bytes) {
     BufferedReader input = new BufferedReader(new StringReader(inputData));
     PrintStream output = new PrintStream(bytes, true);
-    Board<Character> board = new BattleShipBoard<Character>(w, h);
+    Board<Character> board = new BattleShipBoard<Character>(w, h,'X');
     V1ShipFactory shipFactory = new V1ShipFactory();
     // ArrayList<String> shipsToPlace = new ArrayList<>();
     // HashMap<String, Function<Placement, Ship<Character>>> shipCreationFns = new

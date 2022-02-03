@@ -12,9 +12,9 @@ public class NoCollisionRuleCheckerTest {
     Coordinate upperLeft = new Coordinate(1, 1);
     RectangleShip<Character> tmp = new RectangleShip<>("Lucy", upperLeft, 1, 3, 's', '*');
     RectangleShip<Character> tmp_2 = new RectangleShip<>("Lucy", upperLeft_2, 1, 3, 's', '*');
-    Board<Character> b1 = new BattleShipBoard<Character>(10, 20, t);
-    Board<Character> b2 = new BattleShipBoard<Character>(10, 20, t);
-    Board<Character> b3 = new BattleShipBoard<Character>(2, 2, t);
+    Board<Character> b1 = new BattleShipBoard<Character>(10, 20, t, 'X');
+    Board<Character> b2 = new BattleShipBoard<Character>(10, 20, t, 'X');
+    Board<Character> b3 = new BattleShipBoard<Character>(2, 2, t, 'X');
     AbstractShipFactory<Character> factory = new V1ShipFactory();
     Ship<Character> s = factory.makeSubmarine(new Placement("A1v"));
     Ship<Character> s_2 = factory.makeSubmarine(new Placement("A3H"));
@@ -25,7 +25,7 @@ public class NoCollisionRuleCheckerTest {
     assertNull(t.checkCollision(tmp, b2));
     assertFalse(t.checkPlacement(tmp, b1));
     assertEquals("That placement is invalid: the ship goes off the bottom of the board.",t.checkMyRule(tmp_2, b3));
-    Board<Character> b4 = new BattleShipBoard<Character>(1, 3, t);
+    Board<Character> b4 = new BattleShipBoard<Character>(1, 3, t,'X');
     assertEquals("That placement is invalid: the ship goes off the right of the board.",t.checkMyRule(tmp_2, b4));
 
     RectangleShip<Character> tmp_3 = new RectangleShip<>("Lucy", new Coordinate(-5, 2), 1, 1, 's', '*');

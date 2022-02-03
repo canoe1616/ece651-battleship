@@ -69,4 +69,14 @@ public class RectangleShipTest {
     expected.add(new Coordinate(3, 2));
     assertEquals(tmp.getCoordinates(), expected);
   }
+
+  @Test
+  public void test_getDisplay(){
+    Coordinate upperLeft = new Coordinate(1, 2);
+    ShipDisplayInfo<Character> my =  new SimpleShipDisplayInfo<>('a','b');
+    ShipDisplayInfo<Character> enermy =  new SimpleShipDisplayInfo<>('c','d');
+    RectangleShip<Character> tmp = new RectangleShip<>("Lucy", upperLeft, 1, 3, my, enermy);
+    assertEquals('a',tmp.getDisplayInfoAt(new Coordinate(2,2), true));
+    assertEquals('c',tmp.getDisplayInfoAt(new Coordinate(2,2), false));
+  }
 }

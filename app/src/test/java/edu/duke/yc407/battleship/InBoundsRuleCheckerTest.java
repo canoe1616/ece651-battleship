@@ -24,7 +24,7 @@ public class InBoundsRuleCheckerTest {
     RectangleShip<Character> tmp_2 = new RectangleShip<>("Lucy", upperLeft_2, 1, 3, 's', '*');
     Board<Character> b_Collision = new BattleShipBoard<Character> (10, 20, t);
     AbstractShipFactory<Character> factory = new V1ShipFactory();
-    Ship<Character> s = factory.makeSubmarine(new Placement("A1H"));
+    Ship<Character> s = factory.makeSubmarine(new Placement("A1V"));
     b_Collision.tryAddShip(s);
     assertEquals("That placement is invalid: the ship overlaps another ship.",t.checkCollision(tmp_2, b_Collision));
 

@@ -16,7 +16,7 @@ public class NoCollisionRuleCheckerTest {
     Board<Character> b2 = new BattleShipBoard<Character>(10, 20, t);
     Board<Character> b3 = new BattleShipBoard<Character>(2, 2, t);
     AbstractShipFactory<Character> factory = new V1ShipFactory();
-    Ship<Character> s = factory.makeSubmarine(new Placement("A1H"));
+    Ship<Character> s = factory.makeSubmarine(new Placement("A1v"));
     Ship<Character> s_2 = factory.makeSubmarine(new Placement("A3H"));
     b1.tryAddShip(s);
     b2.tryAddShip(s_2);

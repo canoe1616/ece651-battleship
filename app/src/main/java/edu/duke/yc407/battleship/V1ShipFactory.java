@@ -9,7 +9,7 @@ public class V1ShipFactory implements AbstractShipFactory<Character> {
     RectangleShip<Character> tmp =  new RectangleShip<>(name, upperLeft, w, h, letter, '*');;
    
     if(orien == 'h' || orien =='H'){
-      tmp = new RectangleShip<>(name, upperLeft, w, h, letter, '*');
+      tmp = new RectangleShip<>(name, upperLeft, h, w, letter, '*');
     }
     return tmp;
 

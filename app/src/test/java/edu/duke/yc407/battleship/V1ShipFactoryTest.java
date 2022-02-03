@@ -33,7 +33,7 @@ public class V1ShipFactoryTest {
     V1ShipFactory f = new V1ShipFactory();
     Placement h1_2 = new Placement(new Coordinate(1, 2), 'H');
     Ship<Character> sbr = f.makeSubmarine(h1_2);
-    checkShip(sbr, "Submarine", 's', new Coordinate(1, 2), new Coordinate(2, 2));
+    checkShip(sbr, "Submarine", 's', new Coordinate(1, 2), new Coordinate(1, 3));
   }
 
 

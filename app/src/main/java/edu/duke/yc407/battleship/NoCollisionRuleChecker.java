@@ -11,28 +11,40 @@ public class NoCollisionRuleChecker<T>  extends PlacementRuleChecker<T> {
 
 
   @Override 
-  protected boolean checkCollision(Ship<T> theShip, Board<T> theBoard){
+  protected String checkCollision(Ship<T> theShip, Board<T> theBoard){
 
     for(Coordinate c : theShip.getCoordinates()){
       if(theBoard.whatIsAt(c)!= null){
-        return false;
+        return "That placement is invalid: the ship overlaps another ship.";
       }
     }
-    return true;
+    return null;
   }
 
   @Override
-  protected boolean checkMyRule(Ship<T> theShip, Board<T> theBoard) {
+  protected String checkMyRule(Ship<T> theShip, Board<T> theBoard) {
     // TODO Auto-generated method stub
     for(Coordinate c : theShip.getCoordinates()){
-      if(c.getRow() < 0 ||c.getRow() > theBoard.getHeight()){
-        return false;
+      //if(c.getRow() < 0 ||c.getRow() > theBoard.getHeight()){
+      //  return false;
+      //}
+      //else if(c.getColumn() <0 ||c.getColumn() > theBoard.getWidth()){
+      // return false;
+      //}
+      if(c.getRow() < 0){
+        return "That placement is invalid: the ship goes off the top of the board.";
       }
-      else if(c.getColumn() <0 ||c.getColumn() > theBoard.getWidth()){
-        return false;
+      else if(c.getRow() > theBoard.getHeight()){
+        return "That placement is invalid: the ship goes off the bottom of the board.";
+      }
+      else if(c.getColumn() <0){
+        return "That placement is invalid: the ship goes off the left of the board.";
+      }
+      else if(c.getColumn() > theBoard.getWidth()){
+        return "That placement is invalid: the ship goes off the right of the board.";
       }
     }
-    return true;
+    return null;
   }
 
 

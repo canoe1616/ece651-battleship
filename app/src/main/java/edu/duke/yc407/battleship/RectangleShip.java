@@ -29,16 +29,16 @@ public class RectangleShip<T> extends BasicShip<T> {
     return hashset;
   }
 
-  public RectangleShip(String name,Coordinate upperLeft, int width, int height, ShipDisplayInfo<T> info) {
-    super(makeCoords(upperLeft, width, height),info);
+  public RectangleShip(String name,Coordinate upperLeft, int width, int height, ShipDisplayInfo<T> info,ShipDisplayInfo<T> info_enermy) {
+    super(makeCoords(upperLeft, width, height),info,info_enermy);
     this.name = name;
   }
     
   public RectangleShip(String name, Coordinate upperLeft, int width, int height, T data, T onHit) {
-    this(name,upperLeft, width, height, new SimpleShipDisplayInfo<T>(data, onHit));
+    this(name,upperLeft, width, height, new SimpleShipDisplayInfo<T>(data, onHit), new SimpleShipDisplayInfo<T>(null, data));
   }
   public RectangleShip(Coordinate upperLeft, T data, T onHit) {
-    this("testship",upperLeft, 1, 1, data, onHit);
+    this("testship",upperLeft, 1, 1, new SimpleShipDisplayInfo<T>(data, onHit), new SimpleShipDisplayInfo<T>(null,data));
   }
     
 

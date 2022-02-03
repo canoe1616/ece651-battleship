@@ -7,9 +7,11 @@ public abstract class BasicShip<T> implements Ship<T> {
 
   protected HashMap<Coordinate, Boolean> myPieces;
   protected ShipDisplayInfo<T> myDisplayInfo;
-
-  public BasicShip(Iterable<Coordinate> where, ShipDisplayInfo<T> myDisplayInfo) {
+  protected ShipDisplayInfo<T> enemyDisplayInfo;
+  
+  public BasicShip(Iterable<Coordinate> where, ShipDisplayInfo<T> myDisplayInfo, ShipDisplayInfo<T> enemyDisplayInfo) {
     this.myDisplayInfo = myDisplayInfo;
+    this.enemyDisplayInfo = enemyDisplayInfo;
     myPieces = new HashMap<Coordinate, Boolean>();
     for (Coordinate c : where) {
       myPieces.put(c, false);
@@ -69,10 +71,14 @@ public abstract class BasicShip<T> implements Ship<T> {
   }
 
   @Override
-  public T getDisplayInfoAt(Coordinate where) {
+  public T getDisplayInfoAt(Coordinate where,boolean myShip) {
     // TODO Auto-generated method stub
     checkCoordinateInThisShip(where);
+    if(myShip == true){
     return myDisplayInfo.getInfo(where, wasHitAt(where));
   }
-
+    else{
+      return enemyDisplayInfo.getInfo(where, wasHitAt(where));
+    }
+  }
 }

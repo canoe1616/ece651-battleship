@@ -23,7 +23,7 @@ public class NoCollisionRuleCheckerTest {
     assertNull(t.checkMyRule(tmp, b1));  
     assertEquals("That placement is invalid: the ship overlaps another ship.",t.checkCollision(tmp, b1));   
     assertNull(t.checkCollision(tmp, b2));
-    assertFalse(t.checkPlacement(tmp, b1));
+    assertEquals("That placement is invalid: the ship overlaps another ship.",t.checkPlacement(tmp, b1));
     assertEquals("That placement is invalid: the ship goes off the bottom of the board.",t.checkMyRule(tmp_2, b3));
     Board<Character> b4 = new BattleShipBoard<Character>(1, 3, t,'X');
     assertEquals("That placement is invalid: the ship goes off the right of the board.",t.checkMyRule(tmp_2, b4));

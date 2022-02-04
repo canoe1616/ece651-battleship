@@ -16,8 +16,8 @@ public class InBoundsRuleCheckerTest {
     assertNull(t.checkMyRule(tmp, b1));
     assertEquals("That placement is invalid: the ship goes off the bottom of the board.",t.checkMyRule(tmp, b2));
     assertEquals("That placement is invalid: the ship goes off the right of the board.",t.checkMyRule(tmp, b3));
-    assertTrue(t.checkPlacement(tmp, b1));
-    assertFalse(t.checkPlacement(tmp, b2));
+    assertNull(t.checkPlacement(tmp, b1));
+    assertEquals("That placement is invalid: the ship goes off the bottom of the board.",t.checkPlacement(tmp, b2));
     
     
     Coordinate upperLeft_2 = new Coordinate(1, 1);

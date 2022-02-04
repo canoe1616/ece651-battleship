@@ -12,13 +12,13 @@ public abstract class PlacementRuleChecker<T>{
 
    protected abstract String  checkCollision(Ship<T> theShip,Board<T> theBoard);
   
-  public boolean checkPlacement (Ship<T> theShip, Board<T> theBoard) {
+  public String checkPlacement (Ship<T> theShip, Board<T> theBoard) {
     //if we fail our own rule: stop the placement is not legal
     if (checkMyRule(theShip, theBoard)!=null) {
-      return false;
+      return checkMyRule(theShip, theBoard);
     }
      if(checkCollision(theShip, theBoard) != null){
-      return false;
+      return checkCollision(theShip, theBoard);
     }
     
     //other wise, ask the rest of the chain.
@@ -26,6 +26,6 @@ public abstract class PlacementRuleChecker<T>{
       return next.checkPlacement(theShip, theBoard); 
     }
     //if there are no more rules, then the placement is legal
-    return true;
+    return null;
   }
 }

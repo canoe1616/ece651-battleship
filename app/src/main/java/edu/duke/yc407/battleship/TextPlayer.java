@@ -59,13 +59,23 @@ public class TextPlayer {
 
   public void doOnePlacement(String shipName, Function<Placement, Ship<Character>> createFn) throws IOException {
 
-    // String s = "Player A Where would you like to put your ship?";
-    // Ship<Character> ship = shipFactory.makeDestroyer(readPlacement(s));
-    Placement p = readPlacement("Player " + name + " where do you want to place a " + shipName + "?");
-    Ship<Character> s = createFn.apply(p);
-    theBoard.tryAddShip(s);
+    while (true) {
+      try {
+        Placement p = readPlacement("Player " + name + " where do you want to place a " + shipName + "?");
+        Ship<Character> s = createFn.apply(p);
+        String str = theBoard.tryAddShip(s);
+        if(str == null) {
+          break;
+        }
+        else{
+          out.println(str);
+        }
+      }catch (IllegalArgumentException e) {
+        out.println(e.getMessage());
+      }
+    }
     out.print(view.displayMyOwnBoard());
-  }
+    }
 
 
   /*first we should display an empty board*/
@@ -78,5 +88,53 @@ public class TextPlayer {
     // out.print(s);
 
   }
+
+//  public Coordinate readCoordinate(String Prompt) throws IOException {
+//      String s = inputReader.readLine();
+//      if (s == null) {
+//        throw new IOException("The input of coordinate to fire is empty or invalid!\n");
+//      }
+//      try {
+//        Coordinate fireCoordinate = new Coordinate(s);
+//        // only within bound can end loop
+//        indicator = fireCoordinate.boundCheck(theBoard.getWidth(), theBoard.getHeight());
+//        if (fireCoordinate.boundCheck(theBoard.getWidth(), theBoard.getHeight()) == false) {
+//          out.println("The coordinate is out of bound");
+//        }
+//      } catch (IllegalArgumentException illegalArg) {
+//        out.print(illegalArg.getMessage());
+//        continue; // continue to the next loop
+//      }
+//    } while (indicator == false);
+//    return fireCoordinate;
+//  }
+
+
+//  public void playOneTurn(Board<Character> enemyBoard, String enemyName) throws IOException {
+//
+//    String prompt = "Player" + this.name + "Where would you like to fire at?";
+//
+//
+//
+//    BoardTextView enemyBoardTextView = new BoardTextView(enemyBoard);
+//    out.println(view.displayMyBoardWithEnemyNextToIt(enemyBoardTextView, "Your ocean", enemyHeadline));
+//
+//    Coordinate fireCoordinate = readCoordinate();
+//    Character loc = enemyBoard.whatIsAtForSelf(fireCoordinate);
+//    // To check fire result
+//    Ship<Character> fireShip = enemyBoard.fireAt(fireCoordinate);
+//    if (fireShip == null) {
+//      out.println("You missed!");
+//    } else {
+//      if (loc == '*') {
+//        out.println("This coordinate is hit already!\n");
+//      } else {
+//        String shipName = shipMap.get(loc);
+//        out.println("You hit a " + shipName + "!");
+//      }
+//    }
+//  }
+
+
 
 }

@@ -45,7 +45,7 @@ public class BattleShipBoardTest {
     BattleShipBoard<Character> b = new BattleShipBoard<Character>(2, 3, 'X');
     assertNull(b.whatIsAtForSelf(new Coordinate(1, 1)));
     b.tryAddShip(new RectangleShip<Character>(new Coordinate(1, 1), 's', '*'));
-    assertFalse(b.tryAddShip(new RectangleShip<Character>(new Coordinate(4, 5), 's', '*')));
+    assertEquals("That placement is invalid: the ship goes off the bottom of the board.",b.tryAddShip(new RectangleShip<Character>(new Coordinate(4, 5), 's', '*')));
     assertEquals('s', b.whatIsAtForSelf(new Coordinate(1, 1)));
     assertNull(b.whatIsAtForSelf(new Coordinate(0, 2)));
 

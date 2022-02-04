@@ -5,7 +5,7 @@ public interface Board<T> {
 
   public int getHeight();
 
-  public boolean tryAddShip(Ship<T> toAdd);
+  public String tryAddShip(Ship<T> toAdd);
   public T whatIsAtForSelf(Coordinate where);
   //  public T whatIsAt(Coordinate where, boolean isSelf);
   // private <T> void checkWhatIsAtBoard(Board<T> b, T[][] expected){};

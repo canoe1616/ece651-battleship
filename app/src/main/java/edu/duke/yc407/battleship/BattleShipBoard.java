@@ -58,14 +58,14 @@ public class BattleShipBoard<T> implements Board<T> {
   }
 
   /* tryAddShip use the placementChecker */
-  public boolean tryAddShip(Ship<T> toAdd) {
-    Boolean error_not = placementChecker.checkPlacement(toAdd, this);
-    if (error_not == false) {
-      return false;
-    } else {
-      myShips.add(toAdd);
-      return true;
+  public String tryAddShip(Ship<T> toAdd) {
+    if (placementChecker.checkPlacement(toAdd, this) != null) {
+      return placementChecker.checkPlacement(toAdd, this);
     }
+    else {
+      myShips.add(toAdd);
+    }
+      return null;
   }
 
   public T whatIsAtForSelf(Coordinate where) {

@@ -82,12 +82,48 @@ public void test_display_ship_3by5(){
       String expected=
       expectedHeader+
       "A  | | | |  A\n"+
-      "B  | | |s|  B\n"+
+      "B  | |s| |  B\n"+
       "C  | | | |  C\n"+
       expectedHeader;
     assertEquals(expected, view.displayMyOwnBoard());
    
 
 }
+  @Test
+  public void test_enemy_board(){
+    String myView =
+      "  0|1|2|3\n" +
+      "A  | | |d A\n" +
+      "B *|s| |d B\n" +
+      "C  | | |d C\n" +
+      "  0|1|2|3\n";
+
+    String enemyView =
+            "  0|1|2|3\n" +
+                    "A  | | |  A\n" +
+                    "B s| | |  B\n" +
+                    "C X| | |  C\n" +
+                    "  0|1|2|3\n";
+
+    BattleShipBoard<Character> b = new BattleShipBoard<Character>(4, 3 ,'X');
+    // b.tryAddShip(new RectangleShip<Character>(new Coordinate(1, 1),'s','*'));
+    V1ShipFactory f = new V1ShipFactory();
+    Placement h1_0 = new Placement(new Coordinate(1, 0), 'H');
+    Placement h0_3 = new Placement(new Coordinate(0, 3), 'v');
+    Ship<Character> sbr = f.makeSubmarine(h1_0);
+   // V1ShipFactory f_1 = new V1ShipFactory();
+    Ship<Character> des = f.makeDestroyer(h0_3);
+    b.tryAddShip(sbr);
+    b.tryAddShip(des);
+    Coordinate fire = new Coordinate(1,0);
+    Coordinate miss = new Coordinate(2,0);
+    b.fireAt(fire);
+    b.fireAt(miss);
+    BoardTextView view = new BoardTextView(b);
+    assertEquals(myView, view.displayMyOwnBoard());
+    assertEquals(myView, view.displayEnemyBoard());
+
+  }
+
   
 }

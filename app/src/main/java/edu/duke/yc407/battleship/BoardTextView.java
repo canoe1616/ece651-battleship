@@ -1,5 +1,7 @@
 package edu.duke.yc407.battleship;
 
+import java.util.function.Function;
+
 /**
  * This class handles textual display of
  * a Board (i.e., converting it to a string to show
@@ -30,38 +32,53 @@ public class BoardTextView {
     }
   }
    public String displayMyOwnBoard() {
-     StringBuilder ans = new StringBuilder();
+
+     return displayAnyBoard((c)->toDisplay.whatIsAtForSelf(c));
+ }
+
+  public String displayEnemyBoard(){
+
+      return displayAnyBoard((c)->toDisplay.whatIsAtForEnemy(c));
+  }
+
+  protected String displayAnyBoard(Function<Coordinate, Character> getSquareFn){
+        StringBuilder ans = new StringBuilder();
      ans.append(makeHeader());
      /*
 start to develop the board
       */
-     // StringBuilder ans = new StringBuilder();
      for(int i = 0 ; i < toDisplay.getHeight(); i++){
        char tmp = (char)(i + 97);
        ans.append(Character.toUpperCase(tmp));
-       ans.append("  ");
-       for(int j = 0 ; j <toDisplay.getWidth();j++){
+       ans.append(" ");
+       for(int j = 0 ; j < toDisplay.getWidth();j++){
          
-         if(j == toDisplay.getWidth()-1){
-           ans.append(" ");
+         if(j == toDisplay.getWidth() - 1){
+             if(toDisplay.whatIsAtForSelf(new Coordinate(i, j)) != null){
+                 ans.append(toDisplay.whatIsAtForSelf(new Coordinate(i, j)));
+                 ans.append(" ");
+             }
+             else{
+                 ans.append("  ");
+             }
            ans.append(Character.toUpperCase(tmp));
          }
          else{
-           ans.append("|");
            if(toDisplay.whatIsAtForSelf(new Coordinate(i, j)) != null){
              ans.append(toDisplay.whatIsAtForSelf(new Coordinate(i, j)));
              }
            else{
            ans.append(" ");
            }
+           ans.append("|");
            }
        }
        ans.append("\n");
      }
      ans.append(makeHeader());
      return ans.toString();
-     
- }
+    
+  }
 
   /*
     Construct the the first row of the board

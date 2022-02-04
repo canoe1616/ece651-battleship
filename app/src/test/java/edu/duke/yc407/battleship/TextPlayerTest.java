@@ -59,8 +59,8 @@ public class TextPlayerTest {
     // player.doOnePlacement("Destroyer",player.shipCreationFns.get("Destroyer"));
     player.doOnePlacement("Destroyer", (p) -> shipFactory.makeDestroyer(p));
     String expectedHeader = "  0|1|2|3|4\n";
-    String expected = prompt + "\n" + expectedHeader + "A  | | | |  A\n" + "B  | | |d|  B\n" + "C  | | |d|  C\n"
-        + "D  | | |d|  D\n" + "E  | | | |  E\n" + expectedHeader;
+    String expected = prompt + "\n" + expectedHeader + "A  | | | |  A\n" + "B  | |d| |  B\n" + "C  | |d| |  C\n"
+        + "D  | |d| |  D\n" + "E  | | | |  E\n" + expectedHeader;
     assertEquals(expected, bytes.toString());
     bytes.reset();
     player.doOnePlacement("Destroyer", (p) -> shipFactory.makeDestroyer(p));
@@ -100,7 +100,7 @@ public class TextPlayerTest {
   void test_doPlacementPhase() throws IOException{  
     String prompt = "Player A where do you want to place a Destroyer";
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    TextPlayer player = createTextPlayer(10, 10, "A1V\nA2V\nB3v\nB4v\nB5v\nC1v\nC2v\nC8V\nA6v\nA7v\n", bytes);
+    TextPlayer player = createTextPlayer(10, 10, "A2V\nA3V\nB4v\nB5v\nB6v\nC2v\nC3v\nC9V\nA7v\nA8v\n", bytes);
     player.doPlacementPhase();
 
     ByteArrayOutputStream bytes_1 = new ByteArrayOutputStream();

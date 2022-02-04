@@ -105,4 +105,14 @@ public class BattleShipBoard<T> implements Board<T> {
     return null;
   }
 
+  public boolean checkAllSunk(){
+    for(Ship<T>s : myShips){
+      if(!s.isSunk()){
+        return false;
+      }
+    }
+    return true;
+  }
+
+
 }

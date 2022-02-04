@@ -77,4 +77,22 @@ public class BattleShipBoardTest {
     
   }
 
-}
+  @Test
+  public void test_all_Sunk_or_Not() {
+    BattleShipBoard<Character> b = new BattleShipBoard<Character>(5, 5 ,'X');
+    V1ShipFactory f = new V1ShipFactory();
+    Placement h1_2 = new Placement(new Coordinate(1, 2), 'H');
+    Ship<Character> sbr = f.makeSubmarine(h1_2);
+    b.tryAddShip(sbr);
+    b.fireAt(new Coordinate(1, 2));
+    b.fireAt(new Coordinate(1,3));
+    assertTrue(b.checkAllSunk());
+
+    Placement h2_3 = new Placement(new Coordinate(2, 3), 'H');
+    Ship<Character> sbr_2 = f.makeSubmarine(h2_3);
+    b.tryAddShip(sbr_2);
+    assertFalse(b.checkAllSunk());
+  }
+  }
+
+

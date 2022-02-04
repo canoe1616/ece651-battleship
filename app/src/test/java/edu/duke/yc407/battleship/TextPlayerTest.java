@@ -1,7 +1,5 @@
 package edu.duke.yc407.battleship;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -10,6 +8,8 @@ import java.io.PrintStream;
 import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TextPlayerTest {
   @Test
@@ -93,10 +93,66 @@ public class TextPlayerTest {
   // }
   //   return bytes_test.toString();
   // }
-  
 
-  
+
 @Test
+void test_read_coordinate() throws IOException{
+  //Test IOException
+  ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+  TextPlayer playerIOE = createTextPlayer(4, 4, "123\n", bytes);
+  String prompt = "Player " +playerIOE.name + " Where would you like to fire at?";
+  assertThrows(IllegalArgumentException.class,()->playerIOE.readCoordinate(prompt));
+  bytes.reset();
+
+
+// 待跟郭郭讨论
+//  TextPlayer playerBound_2 = createTextPlayer(4, 22, "Z3\ng3\n", bytes);
+//  String prompt_4 = "Player " +playerBound_2.name + " Where would you like to fire at?";
+//  playerBound_2.readCoordinate(prompt_4);
+//  String expected = "Player A Where would you like to fire at?\n"+
+//          "Out of board boundary\n"+
+//          "Player A Where would you like to fire at?\n";
+//  assertEquals(expected, bytes.toString());
+//  bytes.reset();
+//
+
+  //Test for correct cases
+  TextPlayer playercorrect= createTextPlayer(4, 22, "A2\ng3\n", bytes);
+  String prompt_3 = "Player " +playercorrect.name + " Where would you like to fire at?";
+  assertEquals(0, playercorrect.readCoordinate(prompt_3).getRow());
+}
+
+//  @Test
+//  void test_play_one_turn() throws IOException{
+//     Board<Character> b = new BattleShipBoard(4,3,'X');
+//     V1ShipFactory f = new V1ShipFactory();
+//     Ship<Character> s = f.makeDestroyer(new Placement("B1h"));
+//     b.tryAddShip(s);
+//     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//     TextPlayer player = createTextPlayer(4, 3, "B2\nc2\nb1\n", bytes);
+//     player.playOneTurn(b, "B");
+//     player.playOneTurn(b, "B");
+//     bytes.reset();
+//     player.playOneTurn(b, "B");
+//     String expected = "Player A's turn:\n\n"+
+//         "     Your ocean               Player B's ocean\n"+
+//          "  0|1|2|3                    0|1|2|3\n"+
+//   "A  | | |  A                A  | | |  A\n"+
+//   "B  | | |  B                B  | |d|  B\n"+
+//   "C  | | |  C                C  | |X|  C\n"+
+//        "  0|1|2|3                    0|1|2|3\n"+
+//       "\nPlease enter the fire location:\n"+
+//         "You hit a destroyer!\n";
+//
+//     assertEquals(expected, bytes.toString());
+//  }
+
+
+
+
+
+
+  @Test
   void test_doPlacementPhase() throws IOException{  
     String prompt = "Player A where do you want to place a Destroyer";
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();

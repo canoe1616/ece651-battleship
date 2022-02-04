@@ -94,4 +94,51 @@ start to develop the board
     ans.append("\n");
     return ans.toString();
   }
+  
+  public String displayMyBoardWithEnemyNextToIt(BoardTextView enemyView, String myHeader, String enemyHeader) {
+    String[] myLines = displayMyOwnBoard().split("\n");
+    String[] enemyLines = enemyView.displayEnemyBoard().split("\n");
+
+    StringBuilder ans = new StringBuilder();
+    int header_start =5;
+    int header_space = 2 * toDisplay.getWidth() + 22 - myHeader.length() - header_start;
+    int string_space = 16;
+    int string_start_space = 18;
+    
+    /*start to put all things in the stringBuilder */
+    ans.append("\n");
+    ans.append(helper(header_start));
+    ans.append(myHeader);
+    ans.append(helper(header_space));
+    ans.append(enemyHeader);
+    ans.append("\n");
+
+     ans.append(myLines[0]);
+     ans.append(helper(string_start_space));
+     ans.append(enemyLines[0]);
+     ans.append("\n");
+
+    
+     /*start to tackle the file itself*/
+    for(int i=1; i<myLines.length-1;i++){
+      ans.append(myLines[i]);
+      ans.append(helper(string_space));
+      ans.append(enemyLines[i]);
+      ans.append("\n");
+    }
+
+      ans.append(myLines[myLines.length-1]);
+      ans.append(helper(string_start_space));
+      ans.append(enemyLines[myLines.length-1]);
+      ans.append("\n");
+    return ans.toString();
+  }
+
+  public String helper(int k){
+    StringBuilder ans = new StringBuilder();
+    for(int i = 0 ; i < k ; ++i){
+      ans.append(" ");
+    }
+    return ans.toString();
+  }
 }

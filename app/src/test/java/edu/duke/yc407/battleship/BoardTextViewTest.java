@@ -125,5 +125,43 @@ public void test_display_ship_3by5(){
 
   }
 
-  
+
+
+  @Test
+  public void Test_displayMyBoardWithEnemyNextToIt(){
+     String myView =
+      "  0|1|2|3\n" +
+      "A  | | |d A\n" +
+      "B  | | |d B\n" +
+      "C  | | |d C\n" +
+      "  0|1|2|3\n";
+      String enemyView =
+      "  0|1|2|3\n" +
+      "A  | | |  A\n" +
+      "B  |s|s|  B\n" +
+      "C  | | |  C\n" +
+      "  0|1|2|3\n";
+      BattleShipBoard<Character> b1 = new BattleShipBoard<Character>(4,3,'X');
+      Board<Character> b2 = new BattleShipBoard<Character>(4,3,'X');
+      V1ShipFactory f = new V1ShipFactory();
+      Ship<Character> d = f.makeDestroyer(new Placement("A3V"));
+      Ship<Character> d_2 = f.makeDestroyer(new Placement("B1h"));
+      b1.tryAddShip(d);
+      b2.tryAddShip(d_2);
+      BoardTextView v1 = new BoardTextView(b1);
+      BoardTextView v2 = new BoardTextView(b2);
+      String expected ="\n"+
+   "     my board                 enemy board\n"+
+   "  0|1|2|3                    0|1|2|3\n"+
+   "A  | | |d A                A  | | |  A\n"+
+   "B  | | |d B                B  |d|d|d B\n"+
+   "C  | | |d C                C  | | |  C\n"+
+        "  0|1|2|3                    0|1|2|3\n";
+
+      assertEquals(expected,v1.displayMyBoardWithEnemyNextToIt(v2, "my board", "enemy board"));
+
+
+
+    
+  }
 }

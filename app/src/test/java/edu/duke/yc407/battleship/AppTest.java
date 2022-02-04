@@ -62,7 +62,7 @@ public class AppTest {
       //  expectedHeader;
     //assertEquals(expected, bytes.toString());
     //}
-     @Disabled
+  //     @Disabled
   @Test
 @ResourceLock(value = Resources.SYSTEM_OUT, mode = ResourceAccessMode.READ_WRITE)
   void test_main() throws IOException{

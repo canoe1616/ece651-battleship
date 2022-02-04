@@ -64,11 +64,28 @@ public class App {
     TextPlayer b = new TextPlayer("B", b2, input, System.out, factory);
     App app = new App(a, b);
     app.doPlacementPhase();
+    app.doAttackingPhase();
   }
 
   public void doPlacementPhase() throws IOException {
     player1.doPlacementPhase();
     player2.doPlacementPhase();
   }
+
+  public void doAttackingPhase() throws IOException {
+    do {
+      player1.playOneTurn(player2.theBoard, player2.name);
+      if (player2.theBoard.checkAllSunk() == true) {
+        System.out.println("Congratulations! Player " + player1.name + " you win!");
+        break;
+      }
+      player2.playOneTurn(player1.theBoard, player1.name);
+      if (player1.theBoard.checkAllSunk() == true) {
+        System.out.println("Congratulations! Player " + player2.name + " you win!");
+        break;
+      }
+    } while (true);
+  }
+
 
 }

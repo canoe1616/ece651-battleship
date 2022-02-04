@@ -32,7 +32,7 @@ public class Coordinate {
     int r = 0;
     int c = 0;
 
-    if (descr.length() == 1) {
+    if (descr.length() < 2) {
       throw new IllegalArgumentException("The string length is not correct");
     }
 

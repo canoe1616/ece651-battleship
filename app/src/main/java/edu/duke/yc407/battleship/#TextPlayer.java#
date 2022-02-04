@@ -68,7 +68,7 @@ public class TextPlayer {
           break;
         }
         else{
-          out.println(str);
+         out.println(str);
         }
       }catch (IllegalArgumentException e) {
         out.println(e.getMessage());

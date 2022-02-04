@@ -11,4 +11,5 @@ public interface Board<T> {
   // private <T> void checkWhatIsAtBoard(Board<T> b, T[][] expected){};
   public Ship<T> fireAt(Coordinate c);
   public T whatIsAtForEnemy(Coordinate where);
+  public boolean checkAllSunk();
 }

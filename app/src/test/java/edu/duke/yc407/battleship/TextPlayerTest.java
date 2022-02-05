@@ -41,7 +41,7 @@ public class TextPlayerTest {
     BufferedReader input = new BufferedReader(new StringReader(inputData));
     PrintStream output = new PrintStream(bytes, true);
     Board<Character> board = new BattleShipBoard<Character>(w, h,'X');
-    V1ShipFactory shipFactory = new V1ShipFactory();
+    V2ShipFactory shipFactory = new V2ShipFactory();
     // ArrayList<String> shipsToPlace = new ArrayList<>();
     // HashMap<String, Function<Placement, Ship<Character>>> shipCreationFns = new
     // HashMap<>();
@@ -55,7 +55,7 @@ public class TextPlayerTest {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
     TextPlayer player = createTextPlayer(5, 5, "B2V\nA1V\nA3V\n", bytes);
-    V1ShipFactory shipFactory = new V1ShipFactory();
+    V2ShipFactory shipFactory = new V2ShipFactory();
     // player.doOnePlacement("Destroyer",player.shipCreationFns.get("Destroyer"));
     player.doOnePlacement("Destroyer", (p) -> shipFactory.makeDestroyer(p));
     String expectedHeader = "  0|1|2|3|4\n";

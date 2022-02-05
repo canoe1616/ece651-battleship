@@ -15,9 +15,19 @@ public class V1ShipFactory implements AbstractShipFactory<Character> {
 
   };
 
+  public boolean Orientation_checker(Placement where){
+    Character orientation = where.getOrientation();
+    if(!(orientation == 'v' ||
+            orientation == 'V' || orientation == 'H' || orientation == 'h' )){
+      throw new IllegalArgumentException("The Orientation is not valid");
+    }
+    return true;
+  }
+
   @Override
   public Ship<Character> makeSubmarine(Placement where) {
     // TODO Auto-generated method stub
+    Orientation_checker(where);
     return createShip(where, 1, 2, 's', "Submarine");
   }
 
@@ -36,6 +46,7 @@ public class V1ShipFactory implements AbstractShipFactory<Character> {
   @Override
   public Ship<Character> makeDestroyer(Placement where) {
     // TODO Auto-generated method stub
+    Orientation_checker(where);
     return createShip(where, 1, 3, 'd', "Destroyer");
   }
 

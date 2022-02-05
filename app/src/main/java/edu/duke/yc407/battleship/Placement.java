@@ -39,7 +39,10 @@ public class Placement {
 
      this.coord = new Coordinate(descr.substring(0,2));
      int i = 2;
-     if(descr.charAt(i) == 'v' || descr.charAt(i) == 'h' || descr.charAt(i) == 'V' || descr.charAt(i) == 'H'){
+     if(descr.charAt(i) == 'v' || descr.charAt(i) == 'h' || descr.charAt(i) == 'V' || descr.charAt(i) == 'H' ||descr.charAt(i) == 'u' ||
+             descr.charAt(i) == 'U' || descr.charAt(i) == 'R' || descr.charAt(i) == 'r' || descr.charAt(i) == 'd'||descr.charAt(i) == 'D'||
+             descr.charAt(i) == 'l' || descr.charAt(i) == 'L'
+     ){
        this.Orientation = Character.toUpperCase(descr.charAt(i));
      }
      else{

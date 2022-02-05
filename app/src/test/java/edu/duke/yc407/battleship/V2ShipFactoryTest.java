@@ -18,7 +18,7 @@ public class V2ShipFactoryTest {
     V1ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'U');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(2, 1), new Coordinate(2, 2),new Coordinate(2, 3));
+    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 4),new Coordinate(2, 3));
   }
 
 
@@ -43,7 +43,7 @@ public class V2ShipFactoryTest {
     V1ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'L');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(0, 3), new Coordinate(2, 2), new Coordinate(2, 3),new Coordinate(1, 3));
+    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 3),new Coordinate(3, 3));
   }
   @Test
   public void test_V2ShipFactory_Carrier_U() {

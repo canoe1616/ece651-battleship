@@ -21,7 +21,7 @@ public class TextPlayerTest {
     // ArrayList<String> shipsToPlace = new ArrayList<>();
     // HashMap<String, Function<Placement, Ship<Character>>> shipCreationFns = new
     // HashMap<>();
-    TextPlayer player = new TextPlayer("A", b1, new BufferedReader(sr), ps, new V1ShipFactory());
+    TextPlayer player = new TextPlayer("A", b1, new BufferedReader(sr), ps, new V2ShipFactory());
     String prompt = "Please enter a location for a ship:";
     Placement[] expected = new Placement[3];
     expected[0] = new Placement(new Coordinate(1, 2), 'V');
@@ -156,7 +156,7 @@ void test_read_coordinate() throws IOException{
   void test_doPlacementPhase() throws IOException{  
     String prompt = "Player A where do you want to place a Destroyer";
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    TextPlayer player = createTextPlayer(10, 10, "A2V\nA3V\nB4v\nB5v\nB6v\nC2v\nC3v\nC9V\nA7v\nA8v\n", bytes);
+    TextPlayer player = createTextPlayer(10, 10, "A2V\nA3V\nB4v\nB5v\nB6v\nC1u\na7r\nd7l\ng1r\nh4l\n", bytes);
     player.doPlacementPhase();
 
     ByteArrayOutputStream bytes_1 = new ByteArrayOutputStream();
@@ -261,70 +261,70 @@ player_1.doOnePlacement("Submarine", (p) -> shipFactory.makeSubmarine(p));
       "J  | | | | | | | | |  J\n"+
       "  0|1|2|3|4|5|6|7|8|9\n"+
       "Player A where do you want to place a Battleships?\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
-      "A  | |s|s| | | | | |  A\n"+
-      "B  | |s|s|d|d|d| | |  B\n"+
-      "C  | |b| |d|d|d| | |  C\n"+
-      "D  | |b| |d|d|d| | |  D\n"+
-      "E  | |b| | | | | | |  E\n"+
-      "F  | |b| | | | | | |  F\n"+
-      "G  | | | | | | | | |  G\n"+
-      "H  | | | | | | | | |  H\n"+
-      "I  | | | | | | | | |  I\n"+
-      "J  | | | | | | | | |  J\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
+            "A  | |s|s| | | | | |  A\n"+
+            "B  | |s|s|d|d|d| | |  B\n"+
+            "C  | |b| |d|d|d| | |  C\n"+
+            "D  |b|b|b|d|d|d| | |  D\n"+
+            "E  | | | | | | | | |  E\n"+
+            "F  | | | | | | | | |  F\n"+
+            "G  | | | | | | | | |  G\n"+
+            "H  | | | | | | | | |  H\n"+
+            "I  | | | | | | | | |  I\n"+
+            "J  | | | | | | | | |  J\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
       "Player A where do you want to place a Battleships?\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
-      "A  | |s|s| | | | | |  A\n"+
-      "B  | |s|s|d|d|d| | |  B\n"+
-      "C  | |b|b|d|d|d| | |  C\n"+
-      "D  | |b|b|d|d|d| | |  D\n"+
-      "E  | |b|b| | | | | |  E\n"+
-      "F  | |b|b| | | | | |  F\n"+
-      "G  | | | | | | | | |  G\n"+
-      "H  | | | | | | | | |  H\n"+
-      "I  | | | | | | | | |  I\n"+
-      "J  | | | | | | | | |  J\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
+            "A  | |s|s| | | |b| |  A\n"+
+            "B  | |s|s|d|d|d|b|b|  B\n"+
+            "C  | |b| |d|d|d|b| |  C\n"+
+            "D  |b|b|b|d|d|d| | |  D\n"+
+            "E  | | | | | | | | |  E\n"+
+            "F  | | | | | | | | |  F\n"+
+            "G  | | | | | | | | |  G\n"+
+            "H  | | | | | | | | |  H\n"+
+            "I  | | | | | | | | |  I\n"+
+            "J  | | | | | | | | |  J\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
       "Player A where do you want to place a Battleships?\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
-      "A  | |s|s| | | | | |  A\n"+
-      "B  | |s|s|d|d|d| | |  B\n"+
-      "C  | |b|b|d|d|d| | |b C\n"+
-      "D  | |b|b|d|d|d| | |b D\n"+
-      "E  | |b|b| | | | | |b E\n"+
-      "F  | |b|b| | | | | |b F\n"+
-      "G  | | | | | | | | |  G\n"+
-      "H  | | | | | | | | |  H\n"+
-      "I  | | | | | | | | |  I\n"+
-      "J  | | | | | | | | |  J\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
+            "A  | |s|s| | | |b| |  A\n"+
+            "B  | |s|s|d|d|d|b|b|  B\n"+
+            "C  | |b| |d|d|d|b| |  C\n"+
+            "D  |b|b|b|d|d|d| |b|  D\n"+
+            "E  | | | | | | |b|b|  E\n"+
+            "F  | | | | | | | |b|  F\n"+
+            "G  | | | | | | | | |  G\n"+
+            "H  | | | | | | | | |  H\n"+
+            "I  | | | | | | | | |  I\n"+
+            "J  | | | | | | | | |  J\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
       "Player A where do you want to place a Carriers?\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
-      "A  | |s|s| | | |c| |  A\n"+
-      "B  | |s|s|d|d|d|c| |  B\n"+
-      "C  | |b|b|d|d|d|c| |b C\n"+
-      "D  | |b|b|d|d|d|c| |b D\n"+
-      "E  | |b|b| | | |c| |b E\n"+
-      "F  | |b|b| | | |c| |b F\n"+
-      "G  | | | | | | | | |  G\n"+
-      "H  | | | | | | | | |  H\n"+
-      "I  | | | | | | | | |  I\n"+
-      "J  | | | | | | | | |  J\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
+            "A  | |s|s| | | |b| |  A\n"+
+            "B  | |s|s|d|d|d|b|b|  B\n"+
+            "C  | |b| |d|d|d|b| |  C\n"+
+            "D  |b|b|b|d|d|d| |b|  D\n"+
+            "E  | | | | | | |b|b|  E\n"+
+            "F  | | | | | | | |b|  F\n"+
+            "G  | |c|c|c|c| | | |  G\n"+
+            "H  |c|c|c| | | | | |  H\n"+
+            "I  | | | | | | | | |  I\n"+
+            "J  | | | | | | | | |  J\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n"+
       "Player A where do you want to place a Carriers?\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n"+
-      "A  | |s|s| | | |c|c|  A\n"+
-      "B  | |s|s|d|d|d|c|c|  B\n"+
-      "C  | |b|b|d|d|d|c|c|b C\n"+
-      "D  | |b|b|d|d|d|c|c|b D\n"+
-      "E  | |b|b| | | |c|c|b E\n"+
-      "F  | |b|b| | | |c|c|b F\n"+
-      "G  | | | | | | | | |  G\n"+
-      "H  | | | | | | | | |  H\n"+
-      "I  | | | | | | | | |  I\n"+
-      "J  | | | | | | | | |  J\n"+
-      "  0|1|2|3|4|5|6|7|8|9\n";
+            "  0|1|2|3|4|5|6|7|8|9\n"+
+            "A  | |s|s| | | |b| |  A\n"+
+            "B  | |s|s|d|d|d|b|b|  B\n"+
+            "C  | |b| |d|d|d|b| |  C\n"+
+            "D  |b|b|b|d|d|d| |b|  D\n"+
+            "E  | | | | | | |b|b|  E\n"+
+            "F  | | | | | | | |b|  F\n"+
+            "G  | |c|c|c|c| | | |  G\n"+
+            "H  |c|c|c| | |c|c|c|  H\n"+
+            "I  | | | |c|c|c|c| |  I\n"+
+            "J  | | | | | | | | |  J\n"+
+            "  0|1|2|3|4|5|6|7|8|9\n";
     assertEquals(expected, bytes.toString());
 
   }

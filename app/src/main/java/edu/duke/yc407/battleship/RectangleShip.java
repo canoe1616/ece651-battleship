@@ -39,7 +39,7 @@ public class RectangleShip<T> extends BasicShip<T> {
     if(name.equals("Battleship")) {
       if (orientation == 'U' || orientation == 'u') {
         s.addAll(makeCoords(new Coordinate(row, column + 1), 1, 1));
-        s.addAll(makeCoords(new Coordinate(row + 1, column - 1), 3, 1));
+        s.addAll(makeCoords(new Coordinate(row + 1, column ), 3, 1));
       }
       if (orientation == 'R' || orientation == 'r') {
         s.addAll(makeCoords(new Coordinate(row, column), 1, 3));
@@ -51,7 +51,7 @@ public class RectangleShip<T> extends BasicShip<T> {
       }
       if (orientation == 'L' || orientation == 'l') {
         s.addAll(makeCoords(new Coordinate(row + 1, column), 1, 1));
-        s.addAll(makeCoords(new Coordinate(row - 1, column + 1), 1, 3));
+        s.addAll(makeCoords(new Coordinate(row, column + 1), 1, 3));
       }
 
     }

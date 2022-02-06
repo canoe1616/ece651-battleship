@@ -18,7 +18,7 @@ public class V2ShipFactoryTest {
     V2ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'U');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 4),new Coordinate(2, 3));
+    checkShip(dst, "Battleships", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 4),new Coordinate(2, 3));
     assertEquals(1,dst.getMyPieces_order().get(new Coordinate(1, 3)));
     assertEquals(2,dst.getMyPieces_order().get(new Coordinate(2, 2)));
     assertEquals(3,dst.getMyPieces_order().get(new Coordinate(2, 3)));
@@ -31,7 +31,7 @@ public class V2ShipFactoryTest {
     V2ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'r');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(2, 3), new Coordinate(2, 2), new Coordinate(3, 2),new Coordinate(1, 2));
+    checkShip(dst, "Battleships", 'b', new Coordinate(2, 3), new Coordinate(2, 2), new Coordinate(3, 2),new Coordinate(1, 2));
     assertEquals(1,dst.getMyPieces_order().get(new Coordinate(1, 3)));
     assertEquals(2,dst.getMyPieces_order().get(new Coordinate(2, 2)));
     assertEquals(3,dst.getMyPieces_order().get(new Coordinate(2, 3)));
@@ -44,7 +44,7 @@ public class V2ShipFactoryTest {
     V2ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'd');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(1, 4), new Coordinate(2, 3),new Coordinate(1, 2));
+    checkShip(dst, "Battleships", 'b', new Coordinate(1, 3), new Coordinate(1, 4), new Coordinate(2, 3),new Coordinate(1, 2));
     assertEquals(1,dst.getMyPieces_order().get(new Coordinate(2, 3)));
     assertEquals(2,dst.getMyPieces_order().get(new Coordinate(1, 4)));
     assertEquals(3,dst.getMyPieces_order().get(new Coordinate(1, 3)));
@@ -57,7 +57,7 @@ public class V2ShipFactoryTest {
     V2ShipFactory f = new V2ShipFactory();
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'L');
     Ship<Character> dst = f.makeBattleship(v1_2);
-    checkShip(dst, "Battleship", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 3),new Coordinate(3, 3));
+    checkShip(dst, "Battleships", 'b', new Coordinate(1, 3), new Coordinate(2, 2), new Coordinate(2, 3),new Coordinate(3, 3));
     assertEquals(1,dst.getMyPieces_order().get(new Coordinate(2, 2)));
     assertEquals(2,dst.getMyPieces_order().get(new Coordinate(3, 3)));
     assertEquals(3,dst.getMyPieces_order().get(new Coordinate(2, 3)));

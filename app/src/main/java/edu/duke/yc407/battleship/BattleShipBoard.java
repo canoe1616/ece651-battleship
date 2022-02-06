@@ -78,6 +78,7 @@ public class BattleShipBoard<T> implements Board<T> {
 
   public T whatIsAtForSelf(Coordinate where) {
 
+
     return whatIsAt(where, true);
   }
 
@@ -87,20 +88,18 @@ public class BattleShipBoard<T> implements Board<T> {
         return s.getDisplayInfoAt(where, isSelf);
       }
     }
+    if(enemyHit.containsKey(where)){
+      return enemyHit.get(where);
+    }
+    if(isSelf == false && enemyMisses.contains(where)){
+      return missInfo;
+    }
+
     return null;
   }
 
   public T whatIsAtForEnemy(Coordinate where) {
-    T temp = whatIsAt(where, false);
-    if(temp == null){
-      if(enemyHit.containsKey(where)){
-        return enemyHit.get(where);
-      }
-      if(enemyMisses.contains(where)){
-        return missInfo;
-      }
-    }
-    return temp;
+    return whatIsAt(where, false);
   }
 
   public Ship<T> fireAt(Coordinate c) {
@@ -146,7 +145,9 @@ public class BattleShipBoard<T> implements Board<T> {
     //在add 这艘船之后，我们需要把她的mypieces中的，对应的坐标改成true -- Done
     for(Coordinate c : ship_add.getCoordinates()){
       for(int i = 0 ; i < ship_move.getOrder_hit().size();++i){
-        if(ship_add.getMyPieces_order().get(c) == ship_move.getOrder_hit().get(i)){
+        int a =ship_add.getMyPieces_order().get(c);
+        int b = ship_move.getOrder_hit().get(i);
+        if(a == b ){
           ship_add.recordHitAt(c);
         }
       }
@@ -159,8 +160,8 @@ public class BattleShipBoard<T> implements Board<T> {
 
   public void getEnemyHit(Ship<T> ship_move){
     for (Coordinate c : ship_move.getCoordinates()){
-      if(ship_move.wasHitAt(c) == true){
-        enemyHit.put(c,whatIsAtForEnemy(c));
+      if(ship_move.wasHitAt(c)){
+        enemyHit.put(c,whatIsAtForSelf(c));
       }
     }
     //return enemyHit;

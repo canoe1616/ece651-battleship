@@ -49,10 +49,10 @@ public class TextPlayer {
   }
 
   protected void setupShipCreationList() {
-    shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
-    shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
-    shipsToPlace.addAll(Collections.nCopies(3, "Battleships"));
-    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
+//    shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
+//    shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
+    shipsToPlace.addAll(Collections.nCopies(1, "Battleships"));
+//    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
   }
 
   public Placement readPlacement(String prompt) throws IOException {
@@ -131,7 +131,7 @@ public class TextPlayer {
     if (fireShip == null) {
       out.println("You missed!");
     } else {
-      Character ship = enemyBoard.whatIsAtForEnemy(fireCoordinate);
+      char ship = enemyBoard.whatIsAtForEnemy(fireCoordinate);
       String hit_message = null;
       if (ship == 's') {
         hit_message = "You hit a submarine";
@@ -215,7 +215,7 @@ public class TextPlayer {
         choose = readCoordinate(prompt);
         ship_move = theBoard.get_Ship(choose);
         if (ship_move == null) {
-          throw new InvalidPropertiesFormatException("There is no ship here, please enter again: ");
+          throw new IllegalArgumentException("There is no ship here, please enter again: ");
         }
         break;
       } catch (IllegalArgumentException e) {
@@ -233,6 +233,7 @@ public class TextPlayer {
       return false;
     }
     /*Move part*/
+    System.out.println(ship_name);
     Ship<Character> new_ship_add = shipCreationFns.get(ship_name).apply(new_ship);
     String str = theBoard.tryAddShip(new_ship_add);
     if(str != null){

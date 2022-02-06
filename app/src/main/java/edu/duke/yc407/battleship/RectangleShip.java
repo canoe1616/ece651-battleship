@@ -40,7 +40,7 @@ public class RectangleShip<T> extends BasicShip<T> {
     HashSet<Coordinate> s = new HashSet<>();
     int row = upperLeft.getRow();
     int column = upperLeft.getColumn();
-    if(name.equals("Battleship")) {
+    if(name.equals("Battleships")) {
       if (orientation == 'U' || orientation == 'u') {
         s.addAll(makeCoords(new Coordinate(row, column + 1), 1, 1));
         s.addAll(makeCoords(new Coordinate(row + 1, column ), 3, 1));
@@ -88,7 +88,7 @@ public class RectangleShip<T> extends BasicShip<T> {
     HashMap<Coordinate, Integer> tmp = new HashMap<>();
     int row = upperLeft.getRow();
     int column = upperLeft.getColumn();
-    if(name.equals("Battleship")) {
+    if(name.equals("Battleships")) {
       if (orientation == 'U' || orientation == 'u') {
         tmp.put(new Coordinate(row,column+1),1);
         tmp.put(new Coordinate(row+1,column),2);

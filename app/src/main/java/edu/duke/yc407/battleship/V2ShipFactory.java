@@ -19,7 +19,7 @@ public class V2ShipFactory extends V1ShipFactory{
     public Ship<Character> makeBattleship(Placement where) {
         // TODO Auto-generated method stub
         Orientation_checker(where);
-        return new RectangleShip<>(where.getCoordinate(), 'b', '*', where.getOrientation(), "Battleship");
+        return new RectangleShip<>(where.getCoordinate(), 'b', '*', where.getOrientation(), "Battleships");
     }
 
     @Override

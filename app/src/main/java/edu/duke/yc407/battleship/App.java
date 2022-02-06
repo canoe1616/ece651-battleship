@@ -59,7 +59,7 @@ public class App {
     // InputStream in = System.in;
     // InputStreamReader isr = new InputStreamReader(in);
     BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-    V1ShipFactory factory = new V1ShipFactory();
+    V2ShipFactory factory = new V2ShipFactory();
     TextPlayer a = new TextPlayer("A", b1, input, System.out, factory);
     TextPlayer b = new TextPlayer("B", b2, input, System.out, factory);
     App app = new App(a, b);

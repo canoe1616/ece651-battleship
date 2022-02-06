@@ -12,6 +12,7 @@ package edu.duke.yc407.battleship;
 //import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class BattleShipBoard<T> implements Board<T> {
@@ -20,7 +21,13 @@ public class BattleShipBoard<T> implements Board<T> {
   final ArrayList<Ship<T>> myShips;
   private final PlacementRuleChecker<T> placementChecker;
   private HashSet<Coordinate> enemyMisses;
+  private HashMap <Coordinate, T> enemyHit;
+
   final T missInfo;
+
+
+
+
   
   public int getWidth() {
     return width;
@@ -55,6 +62,7 @@ public class BattleShipBoard<T> implements Board<T> {
     this.placementChecker = placementChecker;
     this.enemyMisses = new HashSet<>();
     this.missInfo = miss;
+    this.enemyHit = new HashMap<>();
   }
 
   /* tryAddShip use the placementChecker */
@@ -85,6 +93,9 @@ public class BattleShipBoard<T> implements Board<T> {
   public T whatIsAtForEnemy(Coordinate where) {
     T temp = whatIsAt(where, false);
     if(temp == null){
+      if(enemyHit.containsKey(where)){
+        return enemyHit.get(where);
+      }
       if(enemyMisses.contains(where)){
         return missInfo;
       }
@@ -114,5 +125,44 @@ public class BattleShipBoard<T> implements Board<T> {
     return true;
   }
 
+  /* For version_2_part_2 move, once we found the where we want tp place the new ship*/
+  public Ship<T> get_Ship (Coordinate where) {
+    for (Ship<T> s : myShips) {
+      if (s.occupiesCoordinates(where)) {
+          return s;
+      }
+    }
+    return null;
+  }
 
+/*Remove implementation*/
+
+  /*single principle*/
+  public void remove_ship(Ship<T> ship_move, Ship<T>ship_add){
+
+    //我们挪走的这艘船是否有
+    //enermy misses 是否需要改变 -- 不用(应该不用）
+
+    //在add 这艘船之后，我们需要把她的mypieces中的，对应的坐标改成true -- Done
+    for(Coordinate c : ship_add.getCoordinates()){
+      for(int i = 0 ; i < ship_move.getOrder_hit().size();++i){
+        if(ship_add.getMyPieces_order().get(c) == ship_move.getOrder_hit().get(i)){
+          ship_add.recordHitAt(c);
+        }
+      }
+    }
+    // 保留原始enermy_Board上的信息 -- done getEnemyhit -- done
+    getEnemyHit(ship_move);
+    //把原本ship.remove 的信息全部都变成false --done
+      myShips.remove(ship_move);
+  }
+
+  public void getEnemyHit(Ship<T> ship_move){
+    for (Coordinate c : ship_move.getCoordinates()){
+      if(ship_move.wasHitAt(c) == true){
+        enemyHit.put(c,whatIsAtForEnemy(c));
+      }
+    }
+    //return enemyHit;
+  }
 }

@@ -15,19 +15,6 @@ public class V2ShipFactory extends V1ShipFactory{
         return true;
     }
 
-    protected Ship<Character> createShip(Placement where, int w, int h, char letter, String name) {
-
-        Coordinate upperLeft = where.getCoordinate();
-        Character orien = where.getOrientation();
-        RectangleShip<Character> tmp =  new RectangleShip<>(name, upperLeft, w, h, letter, '*');;
-
-        if(orien == 'h' || orien =='H'){
-            tmp = new RectangleShip<>(name, upperLeft, h, w, letter, '*');
-        }
-        return tmp;
-
-    };
-
     @Override
     public Ship<Character> makeBattleship(Placement where) {
         // TODO Auto-generated method stub
@@ -43,3 +30,39 @@ public class V2ShipFactory extends V1ShipFactory{
     }
 
 }
+
+
+/*
+*
+ b                               b
+bbb    gets hit and becomes     *bb
+*
+* tryADdship myships
+*
+* up: b - >1  (1 -> *)
+*
+* b
+* bb
+* b
+*
+*
+* Down: bbb      --
+*        b
+*
+*
+* d & s --> 1,2,3 --done
+* ddd
+*
+*
+*
+*
+*
+* To do:
+* (1) 造船的方式 -done
+* （2）造船的过程中硬编码 -done
+* （3）enemyhit
+* (4) remove 的函数改一下
+*
+*
+*
+* */

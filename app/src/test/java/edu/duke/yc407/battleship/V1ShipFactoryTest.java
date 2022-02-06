@@ -1,9 +1,8 @@
 package edu.duke.yc407.battleship;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class V1ShipFactoryTest {
 
@@ -23,7 +22,7 @@ public class V1ShipFactoryTest {
     Placement v1_2 = new Placement(new Coordinate(1, 2), 'V');
     Ship<Character> dst = f.makeDestroyer(v1_2);
     checkShip(dst, "Destroyer", 'd', new Coordinate(1, 2), new Coordinate(2, 2), new Coordinate(3, 2));
-
+    assertEquals(3,dst.getMyPieces_order().get(new Coordinate(3, 2)));
   }
 
 
@@ -34,9 +33,26 @@ public class V1ShipFactoryTest {
     Placement h1_2 = new Placement(new Coordinate(1, 2), 'H');
     Ship<Character> sbr = f.makeSubmarine(h1_2);
     checkShip(sbr, "Submarine", 's', new Coordinate(1, 2), new Coordinate(1, 3));
+    assertEquals(1,sbr.getMyPieces_order().get(new Coordinate(1, 2)));
+
   }
 
 
+  @Test
+  public void test_with_Submarine_wrong(){
+    V1ShipFactory f = new V1ShipFactory();
+    Placement h1_2 = new Placement(new Coordinate(1, 2), 'd');
+    assertThrows(IllegalArgumentException.class,()->f.makeSubmarine(h1_2));
+  }
+
+
+
+  @Test
+  public void test_with_Destroyer_wrong(){
+    V1ShipFactory f = new V1ShipFactory();
+    Placement h1_2 = new Placement(new Coordinate(1, 2), 'd');
+    assertThrows(IllegalArgumentException.class,()->f.makeDestroyer(h1_2));
+  }
 
   @Test
   public void test_with_Battleship(){

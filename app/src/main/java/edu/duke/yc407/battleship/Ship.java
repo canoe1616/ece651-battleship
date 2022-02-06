@@ -1,5 +1,8 @@
 package edu.duke.yc407.battleship;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * This interface represents any type of Ship in our Battleship game. It is
  * generic in typename T, which is the type of information the view needs to
@@ -68,5 +71,7 @@ public interface Ship<T> {
    * @return The view-specific information at that coordinate.
    */
   public T getDisplayInfoAt(Coordinate where, boolean myShip);
+  public HashMap<Coordinate, Integer> getMyPieces_order();
+  public List<Integer> getOrder_hit();
 }
 

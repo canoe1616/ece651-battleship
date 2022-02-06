@@ -12,4 +12,6 @@ public interface Board<T> {
   public Ship<T> fireAt(Coordinate c);
   public T whatIsAtForEnemy(Coordinate where);
   public boolean checkAllSunk();
+  public Ship<T> get_Ship (Coordinate where);
+  public void remove_ship(Ship<T> ship_move, Ship<T>ship_add);
 }

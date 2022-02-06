@@ -48,6 +48,21 @@ public class TextPlayerTest {
     return new TextPlayer("A", board, input, output, shipFactory);
   }
 
+
+//  @Test
+//  void test_do_placement_wrong_cases(){
+//    String prompt = "Player A where do you want to place a Destroyer?";
+//    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//    TextPlayer player = createTextPlayer(5, 5, "B2V\nA1V\nA3V\n", bytes);
+//    V2ShipFactory shipFactory = new V2ShipFactory();
+//    // player.doOnePlacement("Destroyer",player.shipCreationFns.get("Destroyer"));
+//    player.doOnePlacement("Destroyer", (p) -> shipFactory.makeDestroyer(p));
+//
+//  }
+
+
+
+
   @Test
   void test_do_placement() throws IOException {
 

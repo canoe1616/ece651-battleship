@@ -6,10 +6,10 @@ public class V1ShipFactory implements AbstractShipFactory<Character> {
 
     Coordinate upperLeft = where.getCoordinate();
     Character orien = where.getOrientation();
-    RectangleShip<Character> tmp =  new RectangleShip<>(name, upperLeft, w, h, letter, '*');;
+    RectangleShip<Character> tmp =  new RectangleShip<>(name, upperLeft, w, h, letter, '*',orien);;
    
     if(orien == 'h' || orien =='H'){
-      tmp = new RectangleShip<>(name, upperLeft, h, w, letter, '*');
+      tmp = new RectangleShip<>(name, upperLeft, h, w, letter, '*',orien);
     }
     return tmp;
 

@@ -54,7 +54,7 @@ public class TextPlayer {
     shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
     shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
     shipsToPlace.addAll(Collections.nCopies(3, "Battleships"));
-    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
+    shipsToPlace.addAll(Collections.nCopies(2, "Carrier"));
   }
 
   public Placement readPlacement(String prompt) throws IOException {

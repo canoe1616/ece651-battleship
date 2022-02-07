@@ -68,10 +68,10 @@ public class AppTest {
   void test_main() throws IOException{
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes, true);
-    InputStream input = getClass().getClassLoader().getResourceAsStream("input.txt");
+    InputStream input = getClass().getClassLoader().getResourceAsStream("input_1.txt");
     assertNotNull(input);
 
-    InputStream expectedStream = getClass().getClassLoader().getResourceAsStream("output.txt");
+    InputStream expectedStream = getClass().getClassLoader().getResourceAsStream("output_1.txt");
     assertNotNull(expectedStream);
     
     InputStream oldIn = System.in;

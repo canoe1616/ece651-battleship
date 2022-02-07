@@ -314,7 +314,7 @@ player_1.doOnePlacement("Submarine", (p) -> shipFactory.makeSubmarine(p));
             "I  | | | | | | | | |  I\n"+
             "J  | | | | | | | | |  J\n"+
             "  0|1|2|3|4|5|6|7|8|9\n"+
-      "Player A where do you want to place a Carriers?\n"+
+      "Player A where do you want to place a Carrier?\n"+
             "  0|1|2|3|4|5|6|7|8|9\n"+
             "A  | |s|s| | | |b| |  A\n"+
             "B  | |s|s|d|d|d|b|b|  B\n"+
@@ -327,7 +327,7 @@ player_1.doOnePlacement("Submarine", (p) -> shipFactory.makeSubmarine(p));
             "I  | | | | | | | | |  I\n"+
             "J  | | | | | | | | |  J\n"+
             "  0|1|2|3|4|5|6|7|8|9\n"+
-      "Player A where do you want to place a Carriers?\n"+
+      "Player A where do you want to place a Carrier?\n"+
             "  0|1|2|3|4|5|6|7|8|9\n"+
             "A  | |s|s| | | |b| |  A\n"+
             "B  | |s|s|d|d|d|b|b|  B\n"+

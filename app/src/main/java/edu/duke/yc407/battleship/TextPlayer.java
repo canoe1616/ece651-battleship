@@ -47,7 +47,7 @@ public class TextPlayer {
     shipCreationFns.put("Submarine", (p) -> shipFactory.makeSubmarine(p));
     shipCreationFns.put("Destroyer", (p) -> shipFactory.makeDestroyer(p));
     shipCreationFns.put("Battleships", (p) -> shipFactory.makeBattleship(p));
-    shipCreationFns.put("Carriers", (p) -> shipFactory.makeCarrier(p));
+    shipCreationFns.put("Carrier", (p) -> shipFactory.makeCarrier(p));
   }
 
   protected void setupShipCreationList() {

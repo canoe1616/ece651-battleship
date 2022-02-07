@@ -113,7 +113,8 @@ public class BattleShipBoard<T> implements Board<T> {
     // if (whatIsAtForSelf(c) != null){
       for (Ship<T> s : myShips) {
         if (s.occupiesCoordinates(c)) {
-          enemyHit.put(c,(T)((Character)s.getName().charAt(0)));
+          char target = (char)(((Character)s.getName().charAt(0)) + 32);
+          enemyHit.put(c, (T)(Character)target);
           s.recordHitAt(c);
           return s;
         }
@@ -201,7 +202,7 @@ public class BattleShipBoard<T> implements Board<T> {
         }
       }
     }
-    record.put("Battleships",numSubmarine );
+    record.put("Battleships", numBattleship);
     record.put("Carrier",numCarrier );
     record.put("Submarine", numSubmarine);
     record.put("Destroyer", numDestroyer);

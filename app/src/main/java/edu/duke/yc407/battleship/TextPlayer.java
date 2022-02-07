@@ -1,6 +1,8 @@
 /*This class is for two players in the battleship game*/
 package edu.duke.yc407.battleship;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -49,10 +51,10 @@ public class TextPlayer {
   }
 
   protected void setupShipCreationList() {
-//    shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
-//    shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
-    shipsToPlace.addAll(Collections.nCopies(1, "Battleships"));
-//    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
+    shipsToPlace.addAll(Collections.nCopies(2, "Submarine"));
+    shipsToPlace.addAll(Collections.nCopies(3, "Destroyer"));
+    shipsToPlace.addAll(Collections.nCopies(3, "Battleships"));
+    shipsToPlace.addAll(Collections.nCopies(2, "Carriers"));
   }
 
   public Placement readPlacement(String prompt) throws IOException {
@@ -135,13 +137,13 @@ public class TextPlayer {
 
       char ship = enemyBoard.whatIsAtForEnemy(fireCoordinate) == null ? ' ' : enemyBoard.whatIsAtForEnemy(fireCoordinate) ;
       String hit_message = null;
-      if (ship == 's') {
+      if (ship == 's'|| ship == 'S') {
         hit_message = "You hit a submarine";
-      } else if (ship == 'd') {
+      } else if (ship == 'd' || ship == 'D') {
         hit_message = "You hit a Destroyer ";
-      } else if (ship == 'c') {
+      } else if (ship == 'c' ||ship == 'C') {
         hit_message = "You hit a Carrier ";
-      } else if (ship == 'b') {
+      } else if (ship == 'b' || ship == 'B') {
         hit_message = "You hit a Battleship ";
       }
       out.println(hit_message);
@@ -199,7 +201,8 @@ public class TextPlayer {
     }
     /*When it comes to the sonar scan*/
     else {
-        sonarScan();
+        sonarScan(enemyBoard);
+        numSonar = numSonar -1;
     }
   }
 
@@ -251,46 +254,47 @@ public class TextPlayer {
 
   /*For part_2 version_2 sonar scan*/
   public HashSet<Coordinate> getDiamond(int row, int column) {
-    int startR = row - 3;
-    int startC = column - 3;
+    int SR = row - 3;
+    int SC = column - 3;
 
     HashSet<Coordinate> diamondList = new HashSet<>();
-    for (int i = startR; i < startR + 3; ++i) {
-      int startNum = 2 * (i - startR) + 1;
-      int startJ = startC + 3 - (i - startR);
+    for (int i = SR; i <= SR + 3; ++i) {
+      int num = 2 * (i - SR) + 1;
+      int J = SC + 3 - (i - SR);
 
-      while (startNum > 0) {
-        if (isInRange(i, startJ)) {
-          diamondList.add(new Coordinate(i, startJ));
+      while (num > 0) {
+        if (isInRange(i, J)) {
+          diamondList.add(new Coordinate(i, J));
         }
-        startJ++;
-        startNum--;
+        J++;
+        num--;
       }
     }
 
     for (int i = row + 3; i >= row + 1; i--) {
-      int startNum = 2 * (3 - (i - row)) + 1;
-      int startJ = startC + i - row;
-      while (startNum > 0) {
-        if (isInRange(i, startJ)) {
-          diamondList.add(new Coordinate(i, startJ));
+      int num = 2 * (3 - (i - row)) + 1;
+      int J = SC + i - row;
+      while (num > 0) {
+        if (isInRange(i, J)) {
+          diamondList.add(new Coordinate(i, J));
         }
-        startJ++;
-        startNum--;
+        J++;
+        num--;
       }
     }
     return diamondList;
   }
 
-  public boolean isInRange(int r, int c) {
+  public boolean isInRange(int r, int c ) {
     if (r < 0 || c < 0 || r >= theBoard.getHeight() || c >= theBoard.getWidth()) {
       return false;
     }
     return true;
   }
 
-  public void sonarScan() throws IOException {
+  public void sonarScan(Board<Character> enemyBoard) throws IOException {
     String prompt = "Please enter the center for the sonar scan";
+    out.println(prompt);
     Coordinate choose = readCoordinate(prompt);
     while (true) {
       try {
@@ -302,8 +306,7 @@ public class TextPlayer {
         out.println(e.getMessage());
       }
     }
-    HashMap<String , Integer> ans = theBoard.sonarScanFind(getDiamond(choose.getRow(), choose.getColumn()));
-    for(int i = 0 ; i < ans.size() ;++i){
+    HashMap<String , Integer> ans = enemyBoard.sonarScanFind(getDiamond(choose.getRow(), choose.getColumn()));
       out.println("Submarines occupy " + ans.get("Submarine") + " squares");
       out.println("Destroyer occupy " + ans.get("Destroyer") + " squares");
       out.println("Battleships occupy " + ans.get("Battleships") + " squares");
@@ -311,6 +314,6 @@ public class TextPlayer {
 
     }
 
-  }
+
 
 }

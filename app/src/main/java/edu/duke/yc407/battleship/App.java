@@ -11,14 +11,10 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.HashSet;
 
 public class App {
 
-  // final Board<Character> theBoard;
-  // final BoardTextView view;
-  // final BufferedReader inputReader;
-  // final PrintStream out;
-  // final AbstractShipFactory<Character> shipFactory;
 
   TextPlayer player1;
   TextPlayer player2;
@@ -28,29 +24,6 @@ public class App {
     this.player2 = B;
   }
 
-  // public App(Board<Character> theBoard, Reader inputSource, PrintStream out) {
-  // this.theBoard = theBoard;
-  // this.view = new BoardTextView(theBoard);
-  // this.inputReader = new BufferedReader(inputSource);
-  // this.out = out;
-  // this.shipFactory = new V1ShipFactory();
-  // }
-
-  // public Placement readPlacement(String prompt) throws IOException {
-  // out.println(prompt);
-  // String s = inputReader.readLine();
-  // return new Placement(s);
-  // }
-
-  // public void doOnePlacement() throws IOException {
-
-  // String s = "Where would you like to put your ship?";
-  // Ship<Character> ship = new
-  // RectangleShip<Character>(readPlacement(s).getCoordinate(), 's', '*');
-  // Ship<Character> ship = shipFactory.makeDestroyer(readPlacement(s));
-  // theBoard.tryAddShip(ship);
-  // out.print(view.displayMyOwnBoard());
-  // }
 
   public static void main(String[] args) throws IOException {
 
@@ -63,8 +36,28 @@ public class App {
     TextPlayer a = new TextPlayer("A", b1, input, System.out, factory);
     TextPlayer b = new TextPlayer("B", b2, input, System.out, factory);
     App app = new App(a, b);
+//    HashSet<Coordinate> diamond = a.getDiamond('R' - 'A', 8);
+////    for(Coordinate c : diamond){
+////      char ch = (char)(c.getRow() + 'a');
+////      System.out.println(ch + "," + c.getColumn());
+////    }
     app.doPlacementPhase();
     app.doAttackingPhase();
+    //p,7
+    //p,9
+    //p,8
+    //q,6
+    //s,9
+    //s,8
+    //q,9
+    //s,7
+    //q,8
+    //s,6
+    //o,8
+    //q,7
+    //t,7
+    //t,9
+    //t,8
   }
 
   public void doPlacementPhase() throws IOException {
@@ -73,18 +66,18 @@ public class App {
   }
 
   public void doAttackingPhase() throws IOException {
-    do {
+    while (true){
       player1.playOneTurn(player2.theBoard, player2.name);
       if (player2.theBoard.checkAllSunk() == true) {
-        System.out.println("Congratulations! Player " + player1.name + " you win!");
+        System.out.println("Great, Player " + player1.name + " you win!");
         break;
       }
       player2.playOneTurn(player1.theBoard, player1.name);
       if (player1.theBoard.checkAllSunk() == true) {
-        System.out.println("Congratulations! Player " + player2.name + " you win!");
+        System.out.println("Great, Player " + player2.name + " you win!");
         break;
       }
-    } while (true);
+    }
   }
 
 

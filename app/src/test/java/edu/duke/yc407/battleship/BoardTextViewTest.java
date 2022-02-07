@@ -121,7 +121,7 @@ public void test_display_ship_3by5(){
     b.fireAt(miss);
     BoardTextView view = new BoardTextView(b);
     assertEquals(myView, view.displayMyOwnBoard());
-    assertEquals(myView, view.displayEnemyBoard());
+    assertEquals(enemyView, view.displayEnemyBoard());
 
   }
 
@@ -154,7 +154,7 @@ public void test_display_ship_3by5(){
    "     my board                 enemy board\n"+
    "  0|1|2|3                    0|1|2|3\n"+
    "A  | | |d A                A  | | |  A\n"+
-   "B  | | |d B                B  |d|d|d B\n"+
+   "B  | | |d B                B  | | |  B\n"+
    "C  | | |d C                C  | | |  C\n"+
         "  0|1|2|3                    0|1|2|3\n";
 

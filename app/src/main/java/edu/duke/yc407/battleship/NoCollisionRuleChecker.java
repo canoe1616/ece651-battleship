@@ -34,13 +34,13 @@ public class NoCollisionRuleChecker<T>  extends PlacementRuleChecker<T> {
       if(c.getRow() < 0){
         return "That placement is invalid: the ship goes off the top of the board.";
       }
-      else if(c.getRow() > theBoard.getHeight()){
+      else if(c.getRow() >= theBoard.getHeight()){
         return "That placement is invalid: the ship goes off the bottom of the board.";
       }
       else if(c.getColumn() <0){
         return "That placement is invalid: the ship goes off the left of the board.";
       }
-      else if(c.getColumn() > theBoard.getWidth()){
+      else if(c.getColumn() >= theBoard.getWidth()){
         return "That placement is invalid: the ship goes off the right of the board.";
       }
     }

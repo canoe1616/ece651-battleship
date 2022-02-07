@@ -104,13 +104,13 @@ public class TextPlayer {
     }
   }
 
-/*Update this function in version_2 */
+  /*Update this function in version_2 */
   public void playOneTurn(Board<Character> enemyBoard, String enemyName) throws IOException {
     String prompt = "Player " + this.name + "'s turn";
     out.println(prompt);
     BoardTextView enemyBoardTextView = new BoardTextView(enemyBoard);
     out.println(view.displayMyBoardWithEnemyNextToIt(enemyBoardTextView, "my board", "enemy board"));
-    choiceReader(enemyBoard,enemyName);
+    choiceReader(enemyBoard, enemyName);
 
   }
 
@@ -118,6 +118,7 @@ public class TextPlayer {
   public void playOneTurn_fire(Board<Character> enemyBoard, String enemyName) throws IOException {
 
     String prompt = "Player " + this.name + " Where would you like to fire at?";
+    out.println(prompt);
     Coordinate fireCoordinate;
     while (true) {
       try {
@@ -131,7 +132,8 @@ public class TextPlayer {
     if (fireShip == null) {
       out.println("You missed!");
     } else {
-      char ship = enemyBoard.whatIsAtForEnemy(fireCoordinate);
+
+      char ship = enemyBoard.whatIsAtForEnemy(fireCoordinate) == null ? ' ' : enemyBoard.whatIsAtForEnemy(fireCoordinate) ;
       String hit_message = null;
       if (ship == 's') {
         hit_message = "You hit a submarine";
@@ -152,33 +154,33 @@ public class TextPlayer {
 
 
   public String Read_Choice() throws IOException {
-      String prompt = "Possible actions for Player " + name + " :\n\n" +
-              " F Fire at a square\n" +
-              " M Move a ship to another square (" + numMove + " remaining)\n" +
-              " S Sonar scan (" + numSonar + " remaining)\n\n" +
-              "Player " + name + ", what would you like to do?\n";
-      out.println(prompt);
-      String s = null;
-      while (true) {
-        try {
-          s = inputReader.readLine();
-          if (s == null) {
-            throw new IllegalArgumentException("The input is null\n");
-          }
-          if (!(s.equals("F") || s.equals("M") || s.equals("S"))) {
-            throw new IllegalArgumentException("Please enter a valid choice\n");
-          }
-          if(numMove == 0){
-            throw new IllegalArgumentException("M has 0 remaining, enter again please\n");
-          }
-          if(numSonar == 0){
-            throw new IllegalArgumentException("S has 0 remaining, enter again please\n");
-          }
-          break;
-        } catch (IllegalArgumentException e) {
-          out.println(e.getMessage());
+    String prompt = "Possible actions for Player " + name + " :\n\n" +
+            " F Fire at a square\n" +
+            " M Move a ship to another square (" + numMove + " remaining)\n" +
+            " S Sonar scan (" + numSonar + " remaining)\n\n" +
+            "Player " + name + ", what would you like to do?\n";
+    out.println(prompt);
+    String s = null;
+    while (true) {
+      try {
+        s = inputReader.readLine();
+        if (s == null) {
+          throw new IllegalArgumentException("The input is null\n");
         }
+        if (!(s.equals("F") || s.equals("M") || s.equals("S"))) {
+          throw new IllegalArgumentException("Please enter a valid choice\n");
+        }
+        if (s.equals("M") && numMove == 0) {
+          throw new IllegalArgumentException("M has 0 remaining, enter again please\n");
+        }
+        if (s.equals("S") && numSonar == 0) {
+          throw new IllegalArgumentException("S has 0 remaining, enter again please\n");
+        }
+        break;
+      } catch (IllegalArgumentException e) {
+        out.println(e.getMessage());
       }
+    }
     return s;
   }
 
@@ -186,18 +188,22 @@ public class TextPlayer {
   public void choiceReader(Board<Character> enemyBoard, String enemyName) throws IOException {
     String choice = Read_Choice();
     if (choice.equals("F")) {
-      playOneTurn_fire(enemyBoard,enemyName );
+      playOneTurn_fire(enemyBoard, enemyName);
     } else if (choice.equals("M")) {
       if (!move()) {
-        choiceReader(enemyBoard,enemyName);
+        choiceReader(enemyBoard, enemyName);
       } else {
         out.println("Successfully move!\n");
-        numMove = numMove -1;
+        numMove = numMove - 1;
       }
+    }
+    /*When it comes to the sonar scan*/
+    else {
+        sonarScan();
     }
   }
 
-/* try to upperleft & tryaddship boundary & collision  -- 让tryAddShip 去检查*/
+  /* try to upperleft & tryaddship boundary & collision  -- 让tryAddShip 去检查*/
   /*hit & miss -- > set -- board */
   /*enemy(hit & miss)*/
 
@@ -226,9 +232,8 @@ public class TextPlayer {
     String move_prompt = "Where do you want to place the moved ship?";
     Placement new_ship = null;
     try {
-    new_ship = readPlacement(move_prompt);
-    }
-    catch (IllegalArgumentException e){
+      new_ship = readPlacement(move_prompt);
+    } catch (IllegalArgumentException e) {
       out.println(e.getMessage());
       return false;
     }
@@ -236,11 +241,76 @@ public class TextPlayer {
     System.out.println(ship_name);
     Ship<Character> new_ship_add = shipCreationFns.get(ship_name).apply(new_ship);
     String str = theBoard.tryAddShip(new_ship_add);
-    if(str != null){
-      return  false;
+    if (str != null) {
+      return false;
     }
-    theBoard.remove_ship(ship_move,new_ship_add);
+    theBoard.remove_ship(ship_move, new_ship_add);
     return true;
   }
+
+
+  /*For part_2 version_2 sonar scan*/
+  public HashSet<Coordinate> getDiamond(int row, int column) {
+    int startR = row - 3;
+    int startC = column - 3;
+
+    HashSet<Coordinate> diamondList = new HashSet<>();
+    for (int i = startR; i < startR + 3; ++i) {
+      int startNum = 2 * (i - startR) + 1;
+      int startJ = startC + 3 - (i - startR);
+
+      while (startNum > 0) {
+        if (isInRange(i, startJ)) {
+          diamondList.add(new Coordinate(i, startJ));
+        }
+        startJ++;
+        startNum--;
+      }
+    }
+
+    for (int i = row + 3; i >= row + 1; i--) {
+      int startNum = 2 * (3 - (i - row)) + 1;
+      int startJ = startC + i - row;
+      while (startNum > 0) {
+        if (isInRange(i, startJ)) {
+          diamondList.add(new Coordinate(i, startJ));
+        }
+        startJ++;
+        startNum--;
+      }
+    }
+    return diamondList;
   }
 
+  public boolean isInRange(int r, int c) {
+    if (r < 0 || c < 0 || r >= theBoard.getHeight() || c >= theBoard.getWidth()) {
+      return false;
+    }
+    return true;
+  }
+
+  public void sonarScan() throws IOException {
+    String prompt = "Please enter the center for the sonar scan";
+    Coordinate choose = readCoordinate(prompt);
+    while (true) {
+      try {
+        if (!isInRange(choose.getRow(), choose.getColumn())) {
+          throw new IllegalArgumentException("The center coordinate is out of boundary!");
+        }
+        break;
+      } catch (IllegalArgumentException e) {
+        out.println(e.getMessage());
+      }
+    }
+    HashMap<String , Integer> ans = theBoard.sonarScanFind(getDiamond(choose.getRow(), choose.getColumn()));
+    for(int i = 0 ; i < ans.size() ;++i){
+      out.println("Submarines occupy " + ans.get("Submarine") + " squares");
+      out.println("Destroyer occupy " + ans.get("Destroyer") + " squares");
+      out.println("Battleships occupy " + ans.get("Battleships") + " squares");
+      out.println("Carrier occupy " + ans.get("Carrier") + " squares");
+
+    }
+
+  }
+
+}

@@ -22,6 +22,7 @@ public class BattleShipBoard<T> implements Board<T> {
   private final PlacementRuleChecker<T> placementChecker;
   private HashSet<Coordinate> enemyMisses;
   private HashMap <Coordinate, T> enemyHit;
+  private HashSet<Coordinate> newHitList;
 
   final T missInfo;
 
@@ -63,6 +64,7 @@ public class BattleShipBoard<T> implements Board<T> {
     this.enemyMisses = new HashSet<>();
     this.missInfo = miss;
     this.enemyHit = new HashMap<>();
+    this.newHitList = new HashSet<>();
   }
 
   /* tryAddShip use the placementChecker */
@@ -83,16 +85,21 @@ public class BattleShipBoard<T> implements Board<T> {
   }
 
   protected T whatIsAt(Coordinate where, boolean isSelf) {
-    for (Ship<T> s : myShips) {
-      if (s.occupiesCoordinates(where)) {
-        return s.getDisplayInfoAt(where, isSelf);
-      }
-    }
-    if(enemyHit.containsKey(where)){
+
+
+    if(isSelf == false && enemyHit.containsKey(where)){
       return enemyHit.get(where);
     }
     if(isSelf == false && enemyMisses.contains(where)){
       return missInfo;
+    }
+    for (Ship<T> s : myShips) {
+      if (s.occupiesCoordinates(where)) {
+        if(isSelf ==false  && newHitList.contains(where)){
+          return null;
+        }
+        return s.getDisplayInfoAt(where, isSelf);
+      }
     }
 
     return null;
@@ -106,6 +113,7 @@ public class BattleShipBoard<T> implements Board<T> {
     // if (whatIsAtForSelf(c) != null){
       for (Ship<T> s : myShips) {
         if (s.occupiesCoordinates(c)) {
+          enemyHit.put(c,(T)((Character)s.getName().charAt(0)));
           s.recordHitAt(c);
           return s;
         }
@@ -149,21 +157,55 @@ public class BattleShipBoard<T> implements Board<T> {
         int b = ship_move.getOrder_hit().get(i);
         if(a == b ){
           ship_add.recordHitAt(c);
+          newHitList.add(c);
         }
       }
     }
     // 保留原始enermy_Board上的信息 -- done getEnemyhit -- done
-    getEnemyHit(ship_move);
+    //getEnemyHit(ship_move);
     //把原本ship.remove 的信息全部都变成false --done
       myShips.remove(ship_move);
   }
 
-  public void getEnemyHit(Ship<T> ship_move){
-    for (Coordinate c : ship_move.getCoordinates()){
-      if(ship_move.wasHitAt(c)){
-        enemyHit.put(c,whatIsAtForSelf(c));
+//  public void getEnemyHit(Ship<T> ship_move){
+//    for (Coordinate c : ship_move.getCoordinates()){
+//      if(ship_move.wasHitAt(c)){
+//        //这里有问题需要修bug --done
+//        enemyHit.put(c,whatIsAtForEnemy(c));
+//      }
+//    }
+//  }
+
+  public HashMap <String , Integer> sonarScanFind (HashSet<Coordinate> diamondList){
+    HashMap <String , Integer> record = new HashMap<>();
+    int numSubmarine = 0 ;
+    int numDestroyer = 0 ;
+    int numBattleship = 0;
+    int numCarrier = 0;
+    for (Ship<T> s : myShips){
+      for(Coordinate c : s.getCoordinates()){
+        if(diamondList.contains(c)){
+          if(get_Ship(c).getName().equals("Battleships")){
+            numSubmarine ++;
+          }
+          if(get_Ship(c).getName().equals("Carrier")){
+            numCarrier ++;
+          }
+          if(get_Ship(c).getName().equals("Submarine")){
+            numSubmarine++;
+          }
+          if(get_Ship(c).getName().equals("Destroyer")){
+            numDestroyer++;
+          }
+
+        }
       }
     }
-    //return enemyHit;
+    record.put("Battleships",numSubmarine );
+    record.put("Carrier",numCarrier );
+    record.put("Submarine", numSubmarine);
+    record.put("Destroyer", numDestroyer);
+    return record;
   }
+
 }

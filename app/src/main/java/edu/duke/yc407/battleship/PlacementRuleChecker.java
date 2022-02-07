@@ -27,5 +27,6 @@ public abstract class PlacementRuleChecker<T>{
     }
     //if there are no more rules, then the placement is legal
     return null;
+
   }
 }

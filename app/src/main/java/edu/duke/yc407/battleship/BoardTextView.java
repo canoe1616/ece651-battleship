@@ -52,10 +52,9 @@ start to develop the board
        ans.append(Character.toUpperCase(tmp));
        ans.append(" ");
        for(int j = 0 ; j < toDisplay.getWidth();j++){
-         
          if(j == toDisplay.getWidth() - 1){
-             if(toDisplay.whatIsAtForSelf(new Coordinate(i, j)) != null){
-                 ans.append(toDisplay.whatIsAtForSelf(new Coordinate(i, j)));
+             if(getSquareFn.apply(new Coordinate(i,j)) != null){
+                 ans.append(getSquareFn.apply(new Coordinate(i,j)));
                  ans.append(" ");
              }
              else{
@@ -64,8 +63,8 @@ start to develop the board
            ans.append(Character.toUpperCase(tmp));
          }
          else{
-           if(toDisplay.whatIsAtForSelf(new Coordinate(i, j)) != null){
-             ans.append(toDisplay.whatIsAtForSelf(new Coordinate(i, j)));
+           if(getSquareFn.apply(new Coordinate(i,j)) != null){
+             ans.append(getSquareFn.apply(new Coordinate(i,j)));
              }
            else{
            ans.append(" ");
